@@ -41,6 +41,7 @@ urlpatterns = [
     path('ideabox/', ideabox_views.home, name="ideabox-home"),
     path('thematic/', thematic_views.home, name="thematic-home"),
     path('ace-investors/', aceinvestors_views.home, name="aceinvestors-home"),
+    path('ace-investors/', include('aceinvestors.urls')),
     path('fundamental-tools/', include('fundamentaltools.urls')),
     path('sentiment/', include('sentiment.urls')),
     path('watchlist/', include('watchlist.urls'))

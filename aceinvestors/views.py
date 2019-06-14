@@ -32,10 +32,5 @@ def home(request):
     }
     return render(request, 'aceinvestors/aceinvestors.html', context)
 
-def add(request):
-
-    val1 = int(request.POST['num1'])
-    val2 = int(request.POST['num2'])
-    res= val1 + val2
-
-    return render(request, 'aceinvestors/results.html', {'result':res,'title': 'Result'})
+def rakesh(request):
+    return render(request, 'aceinvestors/rakesh_jhunjhunwala.html', {'title':'Rakesh Jhunjhunwala'})
