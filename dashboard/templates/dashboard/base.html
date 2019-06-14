@@ -1,0 +1,302 @@
+{% load static %}
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    {% if title %}
+        <title>{{ title }} - Instafin</title>
+    {% else %}
+        <title>Instafin - Stock Research + Fundamental analysis</title>
+    {% endif %}
+    <meta name="description" content="Instafin.io is a free investing tool for fundamenatal analysis of your stocks using machine learning">
+    <meta name="keywords" content="instafin, instafin ideas, insta finance, instafin fundamental analysis, instafin stock">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="{% static 'dashboard/assets/images/icon/instafin-favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/assets/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/assets/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/assets/css/metisMenu.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/assets/css/slicknav.min.css' %}">
+    <!-- amchart css -->
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+    <!-- Start datatable css -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+    <!-- others css -->
+    <link rel="stylesheet" href="{% static 'dashboard/assets/css/typography.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/assets/css/default-css.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/assets/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/assets/css/responsive.css' %}">
+    <!-- modernizr css -->
+    <script src="{% static 'dashboard/assets/js/vendor/modernizr-2.8.3.min.js' %}"></script>
+</head>
+
+<body>
+    <!-- page container area start -->
+    <div class="page-container">
+        <!-- sidebar menu area start -->
+        <div class="sidebar-menu">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <a href="{% url 'dashboard-home' %}"><img src="{% static 'dashboard/assets/images/icon/InstaFin-logo.png' %}" alt="logo"></a>
+                </div>
+            </div>
+            <div class="main-menu">
+                <div class="menu-inner">
+                    <nav>
+                        <ul class="metismenu" id="menu">
+                            <li class="active">
+                                <a href="/dashboard" aria-expanded="true"><i class="ti-dashboard"></i><span>dashboard</span></a>
+
+                            </li>
+                            <li>
+                                <a href="/watchlist" aria-expanded="true"><i class="ti-layout-sidebar-left"></i><span>Watchlist                                    </span></a>
+                            </li>
+                            <li>
+                                <a href="/ideabox" aria-expanded="true"><i class="ti-pie-chart"></i><span>Idea box</span></a>
+
+                            </li>
+                            <li>
+                                <a href="/thematic" aria-expanded="true"><i class="ti-palette"></i><span>Thematic Investments</span></a>
+                            </li>
+                            <li>
+                                <a href="/ace-investors" aria-expanded="true"><i class="ti-slice"></i><span>Ace Investors</span></a>
+                            </li>
+                            <li>
+                                <a href="/sentiment" aria-expanded="true"><i class="fa fa-table"></i><span>Sentiment Analysis</span></a>
+                            </li>
+
+                            <li>
+                            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layers-alt"></i> <span>Fundamental Tools</span></a>
+                                <!-- Upcoming Menus
+                                <ul class="collapse">
+                                    <li><a href="/fair-value">Fair Value Calculator</a></li>
+                                    <li><a href="/dcf-calculator">DCF Calculator</a></li>
+                                    <li><a href="/graham-calculato">Graham Calculator</a></li>
+                                </ul>
+                                Upcoming Menus -->
+                            </li>
+                            <!-- Upcoming Menus
+                            <li>
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-align-left"></i> <span>Coming Soon...</span></a>
+                                <ul class="collapse">
+                                    <li><a href="/analytics">Portfolio Analytics</a></li>
+                                    <li><a href="/screener">Screener</a></li>
+
+                                </ul>
+                            </li>
+                            Upcoming Menus -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- sidebar menu area end -->
+
+        <!-- main content area start -->
+        <div class="main-content">
+            <!-- header area start -->
+            <div class="header-area">
+                <div class="row align-items-center">
+                    <!-- nav and search button -->
+                    <div class="col-md-6 col-sm-8 clearfix">
+                        <div class="nav-btn pull-left">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="search-box pull-left">
+                            <form action="#">
+                                <input type="text" name="search" placeholder="Search..." required>
+                                <i class="ti-search"></i>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- profile info & task notification -->
+                    <div class="col-md-6 col-sm-4 clearfix">
+                        <ul class="notification-area pull-right">
+                            <li id="full-view"><i class="ti-fullscreen"></i></li>
+                            <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+
+                            {% if user.is_authenticated %}
+                            <!-- For login- users: profile info & task notification -->
+                            <li class="dropdown">
+                                <i class="ti-bell dropdown-toggle" data-toggle="dropdown">
+                                    <span>2</span>
+                                </i>
+                                <div class="dropdown-menu bell-notify-box notify-box">
+                                    <span class="notify-title">You have 3 new notifications <a href="#">view all</a></span>
+                                    <div class="nofity-list">
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-key btn-danger"></i></div>
+                                            <div class="notify-text">
+                                                <p>Titan Company Q4 earning reports declared</p>
+                                                <span>9 May, 2019 09:35PM</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-comments-smiley btn-info"></i></div>
+                                            <div class="notify-text">
+                                                <p>HPCL Annual general meeting announced on thrusday</p>
+                                                <span>9 May, 2019 07:35PM</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-key btn-primary"></i></div>
+                                            <div class="notify-text">
+                                                <p>Yes Bank Q4 earning reports declared</p>
+                                                <span>7 May, 2019 04:35PM</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb"><i class="ti-comments-smiley btn-info"></i></div>
+                                            <div class="notify-text">
+                                                <p>HPCL Announced Interim dividend in June</p>
+                                                <span>6 May, 2019 04:35PM</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="settings-btn">
+                                <i class="ti-settings"></i>
+                            </li>
+                            <!-- end for login- users: profile info & task notification -->
+
+                            {% else %}
+                            <!-- For logged out- users: Login/Register -->
+                            <a href="{% url 'login' %}">Login</a>
+                            <a href="{% url 'register' %}">Register</a>
+                            <!-- End for logged out- users: Login/Register -->
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- header area end -->
+            <!-- page title area start -->
+            <div class="page-title-area">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <div class="breadcrumbs-area clearfix">
+                            <h4 class="page-title pull-left">{{ title }}</h4>
+                            <ul class="breadcrumbs pull-left">
+                                <li><a href="{% url 'dashboard-home' %}">Home</a></li>
+                                <li><span>{{ title }}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 clearfix">
+                        <div class="user-profile pull-right">
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Get Ideas <i class="ti-crown"></i></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+    <!-- main content area starts here -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+
+    <!-- main content area end -->
+
+
+    <!-- footer area start-->
+    <footer>
+        <div class="footer-area">
+            <p>InstaFin © Copyright 2019. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a></p>
+        </div>
+    </footer>
+        <!-- footer area end-->
+    </div>
+    <!-- page container area end -->
+    <!-- offset area start -->
+    <div class="offset-area">
+        <div class="offset-close"><i class="ti-close"></i></div>
+            <ul class="nav offset-menu-tab">
+
+                <div class="offset-settings">
+                    <h4>General Settings</h4>
+                    <div class="settings-list">
+                        <div class="s-settings">
+                            <div class="s-sw-title">
+                                <h5><a href="{% url 'profile' %}"><i class="ti-user"></i> Profile</a></h5>
+                            </div>
+                        </div>
+                        <div class="s-settings">
+                            <div class="s-sw-title">
+                                <h5><a href="{% url 'password_reset' %}"><i class="ti-shield"></i> Change Password</a></h5>
+                            </div>
+                        </div>
+
+
+                        <div class="s-settings">
+                            <div class="s-sw-title">
+                                <h5><a href="{% url 'logout' %}"><i class="ti-power-off"></i> Logout</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </ul>
+    </div>
+    <!-- offset area end -->
+    <!-- jquery latest version -->
+    <script src="{% static 'dashboard/assets/js/vendor/jquery-2.2.4.min.js' %}"></script>
+    <!-- bootstrap 4 js -->
+    <script src="{% static 'dashboard/assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'dashboard/assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'dashboard/assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'dashboard/assets/js/metisMenu.min.js' %}"></script>
+    <script src="{% static 'dashboard/assets/js/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'dashboard/assets/js/jquery.slicknav.min.js' %}"></script>
+
+    <!-- start chart js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <!-- start highcharts js -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <!-- start amcharts -->
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+    <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+    <!-- all line chart activation -->
+    <script src="{% static 'dashboard/assets/js/line-chart.js' %}"></script>
+    <!-- all pie chart -->
+    <script src="{% static 'dashboard/assets/js/pie-chart.js' %}"></script>
+    <!-- all bar chart -->
+    <script src="{% static 'dashboard/assets/js/bar-chart.js' %}"></script>
+    <!-- all map chart -->
+    <script src="{% static 'dashboard/assets/js/maps.js' %}"></script>
+    <!-- others plugins -->
+    <script src="{% static 'dashboard/assets/js/plugins.js' %}"></script>
+    <script src="{% static 'dashboard/assets/js/scripts.js' %}"></script>
+    <!-- Start datatable js -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+</body>
+
+</html>

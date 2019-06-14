@@ -1,0 +1,34 @@
+{% extends "dashboard/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="main-content-inner">
+    <div class="row">
+
+                            <div class="container">
+                                <div class="login-box ptb--100">
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <div class="login-form-head">
+                                            <h4>Register</h4>
+                                            <p>Hello there. Register to get access!</p>
+                                        </div>
+                                        <div class="login-form-body">
+                                            {{ form|crispy }}
+                                            <div class="submit-btn-area">
+                                                <button id="form_submit" type="submit">Register<i class="ti-arrow-right"></i></button>
+                                            </div>
+                                            <div class="form-footer text-center mt-5">
+                                                <p class="text-muted">Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+
+    </div>
+</div>
+
+
+{% endblock content %}

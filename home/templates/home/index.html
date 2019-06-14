@@ -1,0 +1,175 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Stock Idea + Fundamenatal Analysis</title>
+	<meta name="description" content="A free investing tool for fundamenatal analysis of your stocks using machine learning">
+	<meta name="keywords" content="instafin, instafin ideas, insta finance, instafin fundamental analysis, instafin stock">
+	<meta name="author" content="Instafin by Trade Brains">
+	<link rel="icon" type="image/png" href="% static 'landingpage/favicons/instafin-favicon.png' %}">
+	<link rel="manifest" href="% static 'landingpage/favicons/manifest.json' %}">
+	<link rel="shortcut icon" href="% static 'landingpage/favicons/favicon.ico' %}">
+	<meta name="msapplication-TileColor" content="#603cba">
+	<meta name="msapplication-TileImage" content="mstile-144x144.png">
+	<meta name="msapplication-config" content="browserconfig.xml">
+	<meta name="theme-color" content="#ffffff">
+	<link rel="stylesheet" href="{% static 'landingpage/css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'landingpage/fonts/font-awesome-4.3.0/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'landingpage/css/all.css' %}">
+	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700|Source+Sans+Pro:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141507312-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-141507312-1');
+	</script>
+
+
+</head>
+<body>
+<div id="wrapper">
+		<header id="header">
+			<div class="container">
+				<div class="logo"><a href=""><img src="{% static 'landingpage/images/InstaFin.png' %}" alt="Instafin" height="40"></a></div>
+
+				<nav id="nav">
+
+					<a href="dashboard/" class="btn btn-primary rounded">Dashboard</a>
+				</nav>
+			</div>
+		</header>
+
+	<section class="visual">
+		<div class="container">
+			<div class="text-block">
+				<div class="heading-holder">
+					<h1>InstaFin</h1>
+				</div>
+				<p class="tagline">The investing tool you need for your stock market success</p>
+				<span class="info">Idea Generation + Fundamental analysis</span>
+			</div>
+		</div>
+		<img src="{% static 'landingpage/images/instafin-cover.png' %}" alt="" class="bg-stretch">
+	</section>
+	<section class="main">
+		<div class="container">
+			<div id="cta">
+				<a href="dashboard/" class="btn btn-primary rounded">DASHBOARD</a>
+				<p>Try for FREE Now!</p>
+			</div>
+			<div class="row">
+				<div class="text-box col-md-offset-1 col-md-10">
+					<h2>Stock Research Made Simpler</h2>
+					<p>Instafin.io is Machine Learning based online stock researching tool to help you generate stock ideas and analyse the true worth of a company.</p>
+			</div>
+		</div>
+	</section>
+	<section class="area">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5">
+					<h2 class="visible-xs visible-sm text-primary">&lt;Here is what you get&gt;</h2>
+					<ul class="visual-list">
+						<li>
+							<div class="img-holder">
+								<img src="{% static 'landingpage/images/graph-04.svg' %}" width="110" alt="">
+							</div>
+							<div class="text-holder">
+								<h3>Idea Box</h3>
+								<p> Not time to find stocks? Generates best stock picking ideas using our simple idea box tools. </p>
+							</div>
+						</li>
+						<li>
+							<div class="img-holder">
+								<img class="pull-left" src="{% static 'landingpage/images/graph-03.svg' %}" width="90" alt="">
+							</div>
+							<div class="text-holder">
+								<h3>Fair value tools</h3>
+								<p>A good business is not a good investment if you overpay. Find the true worth a stock before making your investment decision using our calculated fair values </p>
+							</div>
+						</li>
+						<li>
+							<div class="img-holder">
+								<img src="{% static 'landingpage/images/graph-02.svg' %}" height="84" alt="">
+							</div>
+							<div class="text-holder">
+								<h3>Fundamental analysis</h3>
+								<p>Access our database of public companies to analyse their qualitatitve and quanititative health. </p>
+							</div>
+						</li>
+						<li>
+							<div class="img-holder">
+								<img src="{% static 'landingpage/images/graph-01.svg' %}" height="71" alt="">
+							</div>
+							<div class="text-holder">
+								<h3>Sentiment Analysis</h3>
+								<p>With ML, we use algorithms to automatically classify thousands of posts,  without having to read them manually. Take advantage of supervised sentiment analysis to get the overall market sentiment towards a specific stock. </p>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-7">
+					<div class="slide-holder">
+						<h2 class="hidden-xs hidden-sm text-primary">&lt;Here is what you get&gt;</h2>
+						<div class="img-slide scroll-trigger"><img src="{% static 'landingpage/images/instafin-benefits.jpg' %}" alt="instafin benefits"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="main">
+			<div class="container">
+				<div class="block-holder">
+
+				</div>
+			</div>
+		</section>
+
+	<footer id="footer">
+		<div class="container">
+			<div class="footer-holder">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="logo"><a href="#"><img src="{% static 'landingpage/images/InstaFin.png' %}" alt="INSTAFIN" height="60"></a></div>
+						<p>The investing tool that you need to fundamentally analyse companies for your stock market success.</p>
+					</div>
+					<div class="col-md-2">
+						<h4>Navigation</h4>
+						<ul>
+							<li><a href="#">Home</a></li>
+							<li><a href="#">Dashboard</a></li>
+							<li><a href="#">About</a></li>
+							<li><a href="#">Contact</a></li>
+							<li><a href="#">Support</a></li>
+						</ul>
+					</div>
+					<div class="col-md-3">
+						<div class="text-holder">
+							<strong class="phone"><a href="tel:(+91)9834938257">(+91)-9834938257</a></strong>
+							<span class="available">Available from 10AM - 6PM</span>
+							<h4>Bangalore, IN</h4>
+							<address>info@instafin.io</address>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="text-frame">
+							<h4>Disclaimer</h4>
+							<p>Instafin.io is not a registered investment adviser, operated by a broker or a dealer. Under no circumstances does any information posted on instafin.io represent a recommendation to buy or sell a security.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+</div>
+<script src="{% static 'landingpage/js/jquery-1.11.2.min.js' %}"></script>
+<script src="{% static 'landingpage/js/bootstrap.js' %}"></script>
+<script src="{% static 'landingpage/js/jquery.main.js' %}"></script>
+</body>
+</html>

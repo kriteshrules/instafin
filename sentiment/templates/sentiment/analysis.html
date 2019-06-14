@@ -1,0 +1,49 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Tweets', 'No of tweets'],
+          ['Positive', {{ pos_count }}],
+          ['Negative', {{ neg_count }}],
+          ['Neutral', {{ neutral_count }}]
+        ]);
+
+        var options = {
+          title: 'Twitter Sentiment Analysis',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+</script>
+
+<div class="main-content-inner">
+    <div class="row">
+
+     <!-- trading history area start -->
+        <div class="col-lg-12  mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-sm-flex justify-content-between align-items-center">
+
+                        <h1>Result (keyword: {{keyword}})</h1>
+                    </div>
+
+                    <div id="piechart_3d" style="width: 900px; height: 500px;></div>
+
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

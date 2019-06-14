@@ -1,0 +1,43 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="main-content-inner">
+                <div class="row">
+
+                 <!-- trading history area start -->
+                    <div class="col-lg-12  mt-5">
+                        <div class="card">
+                            <div class="card-body">
+
+                                    <h2><i class="fa fa-twitter"></i> Twitter Sentiment Analysis</h2>
+
+                                    <form action="sentiment" method="post">
+                                        {% csrf_token %}
+                                            <div class="form-row align-items-center">
+                                                <div class="col-sm-6 my-1">
+                                                    <label class="sr-only" for="inlineFormInputName">Keyword</label>
+                                                    <input type="text" class="form-control" id="inlineFormInputName" name="keyword" placeholder="Enter Keyword... like Sensex, company name etc">
+                                                </div>
+
+                                                <div class="col-auto my-1">
+                                                    <button type="submit" class="btn btn-primary">Analyze</button>
+                                                </div>
+                                            </div>
+                                    </form>
+                                    <br>
+
+
+                                <p>This twitter sentiment analysis uses <a href="https://textblob.readthedocs.io/en/dev/">'Textblob'</a> python library for processing textual data and 'Tweepy' library for accessing the Twitter API. For every keyword, we analyze one thousand tweets to determine the sentiment. </p><br>
+                                <p>As accessing and analysing tweets sometimes may take longer time on server, please wait till the processing is complete.</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+    </div>
+</div>
+
+
+{% endblock content %}

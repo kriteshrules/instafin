@@ -1,0 +1,107 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="main-content-inner">
+                <div class="row">
+
+                 <!-- market value area start -->
+                <div class="row mt-5 mb-5">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-sm-flex justify-content-between align-items-center">
+                                    <h4 class="header-title mb-0">Explore the latest themes and trends</h4>
+                                </div>
+                                <div class="market-status-table mt-4">
+                                    <div class="table-responsive">
+                                        <table class="dbkit-table">
+                                            <tr class="heading-td">
+                                                <td class="mv-icon">Image</td>
+                                                <td class="themat">Theme</td>
+                                                <td class="description">Descrption</td>
+                                                <td class="trend">Trend</td>
+                                                <td class="action">Action</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="mv-icon"><img src="{% static 'dashboard/assets/images/thematic/socially-responsible.png' %}" alt="socially responsible">
+                                                </td>
+                                                <td class="thematic">Socially Responsible</td>
+                                                <td class="description">SR Investing is choosing to invest in stocks that provide a financial gain as well as do social good.</td>
+                                                <td class="trend"><img src="{% static 'dashboard/assets/images/icon/market-value/trends-up-icon.png' %}" alt="icon"></td>
+                                                <td class="action"><button type="button" class="btn btn-primary mb-3">Explore</button></td>
+
+                                            </tr>
+
+                                            <tr>
+                                                <td class="mv-icon"><img src="assets/images/thematic/electric-car.png" alt="electric vehicles">
+                                                </td>
+                                                <td class="thematic">Electric Vehicles</td>
+                                                <td class="description">Electric vehicles are the next revolution and the world, along with India, will run on EV cars/buses/trucks etc by 2030.</td>
+                                                <td class="trend"><img src="assets/images/icon/market-value/trends-up-icon.png" alt="icon"></td>
+                                                <td class="action"><button type="button" class="btn btn-primary mb-3">Explore</button></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td class="mv-icon"><img src="assets/images/thematic/digital-india.png" alt="digital india">
+                                                </td>
+                                                <td class="theme">Digital India</td>
+                                                <td class="description">A campaign launched by the Government of India to improve online infrastructure and by increasing Internet connectivity or by making the country digitally empowered in the field of technology.</td>
+                                                <td class="trend"><img src="assets/images/icon/market-value/trends-up-icon.png" alt="icon"></td>
+                                                <td class="action"><button type="button" class="btn btn-primary mb-3">Explore</button></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td class="mv-icon"><img src="assets/images/thematic/evergreen.png" alt="Evergreen stocks">
+                                                </td>
+                                                <td class="theme">Evergreen Stocks</td>
+                                                <td class="description">Companies that can offer value and at the same time promise future growth.</td>
+                                                <td class="trend"><img src="assets/images/icon/market-value/trends-up-icon.png" alt="icon"></td>
+                                                <td class="action"><button type="button" class="btn btn-primary mb-3">Explore</button></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td class="mv-icon"><img src="assets/images/thematic/halal-stocks.png" alt="halal stocks">
+                                                </td>
+                                                <td class="theme">Halal Stocks</td>
+                                                <td class="description">Investing according to Islamic principles can offer many benefits to Muslims and non-Muslims alike. Halal investing encourages a disciplined investment.</td>
+                                                <td class="trend"><img src="assets/images/icon/market-value/trends-up-icon.png" alt="icon"></td>
+                                                <td class="action"><button type="button" class="btn btn-primary mb-3">Explore</button></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td class="mv-icon"><img src="assets/images/thematic/smart-city.png" alt="smart city">
+                                                </td>
+                                                <td class="theme">Smart Cities</td>
+                                                <td class="description">A revoultion inn urban area that uses different types of electronic Internet of things sensors to collect data and then use these data to manage assets and resources efficiently.</td>
+                                                <td class="trend"><img src="assets/images/icon/market-value/trends-up-icon.png" alt="icon"></td>
+                                                <td class="action"><button type="button" class="btn btn-primary mb-3">Explore</button></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td class="mv-icon"><img src="assets/images/thematic/incredible-india.png" alt="incredible india">
+                                                </td>
+                                                <td class="theme">Incredible India</td>
+                                                <td class="description">It is the name of an international tourism campaign maintained by the Government of India since 2002, to promote tourism in India.</td>
+                                                <td class="trend"><img src="assets/images/icon/market-value/trends-down-icon.png" alt="icon"></td>
+                                                <td class="action"><button type="button" class="btn btn-primary mb-3">Explore</button></td>
+
+                                            </tr>
+
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- market value area end -->
+
+
+            </div>
+</div>
+
+
+{% endblock content %}

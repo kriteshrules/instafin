@@ -1,0 +1,36 @@
+{% extends "dashboard/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="main-content-inner">
+    <div class="row">
+
+        <div class="container">
+            <div class="login-box ptb--100">
+                <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <div class="login-form-head">
+                                        <h4>Profile Info</h4>
+                                        <img class="rounded-circle account-img" width="70" height="70" src="{{ user.profile.image.url }}">
+                                        <h2 class="account-heading">{{ user.username }}</h2>
+                                        <p class="text-secondary">{{ user.email }}</p>
+                                </div>
+                                <div class="login-form-body">
+                                    {{ u_form|crispy }}
+                                    {{ p_form|crispy }}
+                                    <div class="submit-btn-area">
+                                        <button id="form_submit" type="submit">Update<i class="ti-arrow-right"></i></button>
+                                    </div>
+                                </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock content %}
+
+
