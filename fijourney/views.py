@@ -8,10 +8,10 @@ def fijourney_home(request):
 def result(request):
     age = int(request.POST['age'])
     current_annual_income = float(request.POST['current_annual_income'])
-    annual_hike = float(request.POST['annual_hike'])
+    annual_hike = (float(request.POST['annual_hike'])/100)
     current_annual_expenses = float(request.POST['current_annual_expenses'])
     current_total_savings = float(request.POST['current_total_savings'])
-    percent_inv_high_return_assets = float(request.POST['percent_inv_high_return_assets'])
+    percent_inv_high_return_assets = (float(request.POST['percent_inv_high_return_assets'])/100)
 
     percent_inv_low_return_assets = 1 - percent_inv_high_return_assets  # Percentage of savings in low return assets
 
