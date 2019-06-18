@@ -1,0 +1,137 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="main-content-inner">
+                <div class="row">
+
+                 <!-- trading history area start -->
+                    <div class="col-lg-12  mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-sm-flex justify-content-between align-items-center">
+                                <!-- TradingView Widget BEGIN -->
+                                <div class="tradingview-widget-container">
+                                    <div class="tradingview-widget-container__widget"></div>
+                                    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BSE-TITAN/" rel="noopener" target="_blank"><span class="blue-text">TITAN Symbol Info</span></a> by TradingView</div>
+                                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
+                                    {
+                                    "symbol": "BSE:TITAN",
+                                    "width": "100%",
+                                    "locale": "en",
+                                    "colorTheme": "light",
+                                    "isTransparent": true
+                                }
+                                    </script>
+                                </div>
+                                <!-- TradingView Widget END -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- trading history area end -->
+
+                    <!-- Price history start -->
+                    <div class="col-lg-8 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <!--
+                                <h4 class="header-title">Price History</h4>
+                                <div id="user-statistics"></div>
+                                -->
+                                <!-- TradingView Widget BEGIN -->
+                                <div class="tradingview-widget-container">
+                                    <div id="tv-medium-widget"></div>
+                                    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BSE-TITAN/" rel="noopener" target="_blank"><span class="blue-text">Titan Quotes</span></a> by TradingView</div>
+                                    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                                    <script type="text/javascript">
+                                    new TradingView.MediumWidget(
+                                    {
+                                    "container_id": "tv-medium-widget",
+                                    "symbols": [
+                                        [
+                                            "Titan",
+                                            "BSE:TITAN|3m"
+                                        ]
+                                    ],
+                                    "greyText": "Quotes by",
+                                    "gridLineColor": "#e9e9ea",
+                                    "fontColor": "#83888D",
+                                    "underLineColor": "#dbeffb",
+                                    "trendLineColor": "#4bafe9",
+                                    "width": "100%",
+                                    "height": "480",
+                                    "locale": "en"
+                                }
+                                    );
+                                    </script>
+                                </div>
+                                <!-- TradingView Widget END -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- price history end -->
+
+                    <!-- Company profile start -->
+                    <div class="col-lg-4 mt-5">
+                        <div class="card h-full">
+                            <div class="card-body">
+                                <!-- TradingView Widget BEGIN -->
+                                <div class="tradingview-widget-container">
+                                    <div class="tradingview-widget-container__widget"></div>
+                                    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/NSE-TITAN/" rel="noopener" target="_blank"><span class="blue-text">TITAN Profile</span></a> by TradingView</div>
+                                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-profile.js" async>
+                                    {
+                                    "symbol": "NSE:TITAN",
+                                    "width": "100%",
+                                    "height": "480",
+                                    "colorTheme": "light",
+                                    "isTransparent": true,
+                                    "locale": "en"
+                                }
+                                    </script>
+                                </div>
+                                <!-- TradingView Widget END -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                     <!-- trading history area start --><br>
+                        <div class="col-lg-12 mt-sm-30 mt-xs-30">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-sm-flex justify-content-between align-items-center">
+                                        <!-- TradingView Widget BEGIN -->
+                                        <div class="tradingview-widget-container">
+                                            <div class="tradingview-widget-container__widget"></div>
+                                            <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BSE-TITAN/" rel="noopener" target="_blank"><span class="blue-text">TITAN Fundamental Data</span></a> by TradingView</div>
+                                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>
+                                            {
+                                            "symbol": "BSE:TITAN",
+                                            "colorTheme": "light",
+                                            "isTransparent": true,
+                                            "largeChartUrl": "",
+                                            "displayMode": "regular",
+                                            "width": "100%",
+                                            "height": "830",
+                                            "locale": "en"
+                                        }
+                                            </script>
+                                        </div>
+                                        <!-- TradingView Widget END -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- trading history area end -->
+
+                </div>
+            </div>
+        </div>
+        <!-- main content area end -->
+
+
+{% endblock content %}

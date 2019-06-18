@@ -44,7 +44,9 @@ urlpatterns = [
     path('ace-investors/', include('aceinvestors.urls')),
     path('fundamental-tools/', include('fundamentaltools.urls')),
     path('sentiment/', include('sentiment.urls')),
-    path('watchlist/', include('watchlist.urls'))
+    path('stocks/', include('stocks.urls')),
+    path('watchlist/', include('watchlist.urls')),
+    path('fire/', include('fijourney.urls')),
 ]
 
 #path('ideabox/', include('ideabox.urls')),

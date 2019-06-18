@@ -1,0 +1,34 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+
+<div class="main-content-inner">
+    <div class="row">
+                <div class="col-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+
+                        <h1>Results</h1>
+
+                        <h2>Base Case</h2><br>
+                        Age to FIRE: {{ age_base }} <br>
+                        Networth at FIRE: {{ net_worth_base }} <br>
+
+                        <h2>Balanced Case</h2><br>
+                        Age to FIRE: {{ age_balanced }} <br>
+                        Networth at FIRE: {{ net_worth_balanced }} <br>
+
+                        <h2>Relaxed Case</h2><br>
+                        Age to FIRE: {{ age_relaxed }} <br>
+                        Networth at FIRE: {{ net_worth_relaxed }} <br>
+
+                        <h2>Aggressive Case</h2><br>
+                        Age to FIRE: {{ age_aggressive }} <br>
+                        Networth at FIRE: {{ net_worth_aggressive }} <br>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+
+<div class="main-content-inner">
+    <div class="row">
+                <div class="col-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+
+                        <h1>FIRE Questions</h1>
+                        <br><br>
+
+                        <form action="result" method="POST">
+                            {% csrf_token %}
+                            Enter your age: <input type="text" name="age" placeholder="27"><br>
+                            Enter your current annual income: <input type="text" name="current_annual_income" placeholder="700000"><br>
+                            Enter your current annual expenses: <input type="text" name="current_annual_expenses" placeholder="400000"><br>
+                            Enter your current total savings: <input type="text" name="current_total_savings" placeholder="250000"><br>
+                            Enter percent of your savings in high return assets: <input type="text" name="percent_inv_high_return_assets" placeholder="0.3"><br>
+                            Enter your annual income hike in percentage: <input type="text" name="annual_hike" placeholder="0.09"><br>
+                            <input type="submit">
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
