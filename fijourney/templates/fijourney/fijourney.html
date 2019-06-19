@@ -1,5 +1,6 @@
 {% extends "dashboard/base.html" %}
 {% block content %}
+{% load static %}
 
 <div class="main-content-inner">
     <div class="row">
@@ -7,23 +8,114 @@
                     <div class="card">
                         <div class="card-body">
 
-                        <h1>FIRE Questions</h1>
-                        <br><br>
+                            <h4 class="header-title">Financial Independence & Retire Early (FIRE)</h4>
+                                <p>Want to know how close you are towards your financial freedom journey? Click on the below button to find out at what age you can achieve FI/RE depending on your current income, expenses & investing habits. Good luck!</p>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary btn-flat btn-lg mt-3" data-toggle="modal" data-target="#firemodal">Get started</button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="firemodal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">FIRE Questions</h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="result" method="POST">
+                                                    {% csrf_token %}
+                                                    <label class="col-form-label">Enter your age (in years): </label>
+                                                    <input type="text" name="age" placeholder="27" class="form-control" type="number"><br>
 
-                        <form action="result" method="POST">
-                            {% csrf_token %}
-                            Enter your age: <input type="text" name="age" placeholder="27"><br>
-                            Enter your current annual income: <input type="text" name="current_annual_income" placeholder="700000"><br>
-                            Enter your current annual expenses: <input type="text" name="current_annual_expenses" placeholder="400000"><br>
-                            Enter your current total savings: <input type="text" name="current_total_savings" placeholder="250000"><br>
-                            Enter percent(%) of your savings in high return assets: <input type="text" name="percent_inv_high_return_assets" placeholder="30"><br>
-                            Enter your annual income hike (in %): <input type="text" name="annual_hike" placeholder="9"><br>
-                            <input type="submit">
-                        </form>
+                                                    <label class="col-form-label">Enter your current annual income: </label>
+                                                    <input type="text" name="current_annual_income" placeholder="700000" class="form-control" type="number"><br>
 
+                                                    <label class="col-form-label">Enter your current annual expenses: </label>
+                                                    <input type="text" name="current_annual_expenses" placeholder="400000" class="form-control" type="number"><br>
+
+                                                    <label class="col-form-label">Enter your current total savings: </label>
+                                                    <input type="text" name="current_total_savings" placeholder="250000" class="form-control" type="number"><br>
+
+                                                    <label class="col-form-label">Enter percent(%) of your savings in high return assets: </label>
+                                                    <input type="text" name="percent_inv_high_return_assets" placeholder="30" class="form-control" type="number"><br>
+
+                                                    <label class="col-form-label">Enter your annual income hike (in %): </label>
+                                                    <input type="text" name="annual_hike" placeholder="9" class="form-control" type="number"><br>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">See your result</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+
+                    <!-- accordion style 1 end -->
+                    <div class="col-lg-6 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <h4>Four Words That Matters</h4><br>
+
+                                <img src="{% static 'fire/fire1.png' %}" alt="Los Angeles" style="width:100%;">
+
+                                <p><b>— Financial freedom:</b> not have to work for the sole purpose of making money.</p>
+
+                                <p><b>— Early Retirement:</b> situation of quitting your job/career and pursuing other activities that you’re passionate about.</p>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- accordion style 1 end -->
+                    <!-- accordion style 2 start -->
+                    <div class="col-lg-6 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title">FAQ's</h4>
+                                <div id="accordion2" class="according accordion-s2">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <a class="card-link" data-toggle="collapse" href="#accordion21">What is FIRE?</a>
+                                        </div>
+                                        <div id="accordion21" class="collapse show" data-parent="#accordion2">
+                                            <div class="card-body">
+                                                Financial Independence and Early Retirement (FIRE) is a lifestyle movement that aims at reducing expenditures and increasing investments in order to achieve financial freedom and retirement faster at an early age.
+                                                <br><br> This means freedom to pursue activities you want without worrying much about money. Financial independence also often invites Early Retirement/ Retiring Early (RE), i.e. not having to work at a job just for the sake of money. Although FI/RE is a relatively new concept, however, there are multiple examples of individuals who have achieved financial independence in their 40s, 30s and sometimes even in their 20s.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <a class="collapsed card-link" data-toggle="collapse" href="#accordion22">Who is FIRE for?</a>
+                                        </div>
+                                        <div id="accordion22" class="collapse" data-parent="#accordion2">
+                                            <div class="card-body">
+                                                FIRE lifestyle is for all those who want to achieve financial independence quickly and ready to optimize their expenses and invest smartly.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <a class="collapsed card-link" data-toggle="collapse" href="#accordion23">How to achieve FIRE?</a>
+                                        </div>
+                                        <div id="accordion23" class="collapse" data-parent="#accordion2">
+                                            <div class="card-body">
+                                                Before you start optimizing your savings and investments, the first step towards FIRE is to understand ‘WHY’ and ‘How much’ you need to become financially free. Here's an article on how to get started with FIRE: <a href="https://www.tradebrains.in/financial-independence-and-early-retirement/">Break all the rules and conquer FIRE- Financial Independence and Early Retirement!</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- accordion style 2 end -->
+
+
         </div>
     </div>
 

@@ -148,13 +148,13 @@ def result(request):
 
     context= {
         'age_base': age_base,
-        'net_worth_base': net_worth_base,
+        'net_worth_base': int(net_worth_base),
         'age_balanced': age_balanced,
-        'net_worth_balanced': net_worth_balanced,
+        'net_worth_balanced': int(net_worth_balanced),
         'age_relaxed': age_relaxed,
-        'net_worth_relaxed': net_worth_relaxed,
+        'net_worth_relaxed': int(net_worth_relaxed),
         'age_aggressive': age_aggressive,
-        'net_worth_aggressive': net_worth_aggressive,
+        'net_worth_aggressive': int(net_worth_aggressive),
         'title': "FIRE Result"
     }
 

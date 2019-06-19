@@ -7,25 +7,140 @@
                     <div class="card">
                         <div class="card-body">
 
-                        <h1>Results</h1>
+                        <h2>Your result:</h2><br>
 
-                        <h2>Base Case</h2><br>
-                        Age to FIRE: {{ age_base }} <br>
-                        Networth at FIRE: {{ net_worth_base }} <br>
+                            <h4>At your current earnings and saving habits, you will require <b>Rs {{ net_worth_base }}</b> to achieve FIRE. You are estimated to reach FIRE at an age of <b>{{ age_base }}</b> Years.</h4>
 
-                        <h2>Balanced Case</h2><br>
-                        Age to FIRE: {{ age_balanced }} <br>
-                        Networth at FIRE: {{ net_worth_balanced }} <br>
+                        <br><p>Note: You can sail to FIRE faster! Choose one of the following plans and commit to change your life around to reach financial independence fast at an age of:</p>
 
-                        <h2>Relaxed Case</h2><br>
-                        Age to FIRE: {{ age_relaxed }} <br>
-                        Networth at FIRE: {{ net_worth_relaxed }} <br>
-
-                        <h2>Aggressive Case</h2><br>
-                        Age to FIRE: {{ age_aggressive }} <br>
-                        Networth at FIRE: {{ net_worth_aggressive }} <br>
-                      </div>
+                        </div>
                 </div>
+
+
+    <div class="sales-report-area mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="single-report mb-xs-30">
+                    <div class="s-report-inner pr--20 pt--30 mb-3">
+                        <div class="icon"><i class="ti-check"></i></div>
+                        <div class="s-report-title d-flex justify-content-between">
+                            <h4 class="header-title mb-0">Relaxed Plan</h4>
+                        </div>
+                        <div class="d-flex justify-content-between pb-2">
+                            <h4>Age to FIRE: {{ age_relaxed }} Years</h4>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-lg mb-3" data-toggle="modal" data-target="#relaxedplan">Explore</button>
+                        <!-- Modal -->
+                                <div class="modal fade" id="relaxedplan">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Relaxed Plan</h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                In the relaxed scheme you will sail to FI at a cruising speed. Here, time is your friend and you’ll  get  highest contribution from compounding interest.<br><br>
+                                                Following steps can help you in achieving FI at relaxed rate:<br>
+                                                    - Increase your saving rate from 57% to 63%<br>
+                                                    - Invest 55% of your income in high return investment options.<br>
+                                                    - Invest 45% of your income in safe return investment options.<br><br>
+
+                                                Your expected average annual return in relaxed plan is 11.7% per annum.
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Commit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        <!-- Modal ends here-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="single-report mb-xs-30">
+                    <div class="s-report-inner pr--20 pt--30 mb-3">
+                        <div class="icon"><i class="ti-stats-up"></i></div>
+                        <div class="s-report-title d-flex justify-content-between">
+                            <h4 class="header-title mb-0">Balanced Plan</h4>
+                        </div>
+                        <div class="d-flex justify-content-between pb-2">
+                            <h4>Age to FIRE: {{ age_balanced }} Years</h4>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-lg mb-3" data-toggle="modal" data-target="#balancedplan">Explore</button>
+                        <!-- Modal -->
+                                <div class="modal fade" id="balancedplan">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Balanced Plan</h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                In the balanced scheme, you will sail to FI at a balanced speed with your current expenditures & future goals.<br><br>
+                                                Following steps can help you in achieving FI at relaxed rate:<br>
+                                                    - Increase your saving rate from 57% to 63%<br>
+                                                    - Invest 55% of your income in high return investment options.<br>
+                                                    - Invest 45% of your income in safe return investment options.<br><br>
+
+                                                    Your expected average annual return in relaxed plan is 11.7% per annum.
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Commit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        <!-- Modal ends here-->
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="single-report">
+                    <div class="s-report-inner pr--20 pt--30 mb-3">
+                        <div class="icon"><i class="ti-bolt-alt"></i></div>
+                        <div class="s-report-title d-flex justify-content-between">
+                            <h4 class="header-title mb-0">Aggressive Plan</h4>
+                        </div>
+                        <div class="d-flex justify-content-between pb-2">
+                            <h4>Age to FIRE: {{ age_aggressive }} Years</h4>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-lg mb-3"  data-toggle="modal" data-target="#aggressiveplan">Explore</button>
+                        <!-- Modal -->
+                                <div class="modal fade" id="aggressiveplan">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Aggressive Plan</h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                In the accelerated scheme, you will travel to FI at the fastest speed. Here, you’ll optimize your savings to the fullest and invest aggressively to get maximum returns.<br><br>
+                                                Following steps can help you in achieving FI at relaxed rate:<br>
+                                                    - Increase your saving rate from 57% to 63%<br>
+                                                    - Invest 55% of your income in high return investment options.<br>
+                                                    - Invest 45% of your income in safe return investment options.<br><br>
+
+                                                Your expected average annual return in relaxed plan is 11.7% per annum.
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Commit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        <!-- Modal ends here-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- dashboard options area end -->
             </div>
         </div>
     </div>
