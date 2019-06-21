@@ -87,10 +87,27 @@ WSGI_APPLICATION = 'Instafin.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'eadmojfa',
+        'USER': 'eadmojfa',
+        'PASSWORD': 'QXBGPKo2rWFIN0zqNl73dvpNtNraW2Ow',
+        'HOST': 'rosie.db.elephantsql.com',
+        'PORT': '5432'
+
     }
 }
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'instafin',
+#        'USER': 'postgres',
+#        'PASSWORD': 'Mishu@007',
+#        'HOST': 'localhost',
+#        'PORT': '5042'
+#    }}
+
+
 
 
 # Password validation
@@ -133,7 +150,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

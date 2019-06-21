@@ -11,10 +11,10 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="media mb-6">
-                                    <img class="img-fluid mr-4" src="{% static "" %}/aceinvestors/RakeshJhunjhunwala.jpg" alt="image" height="80" width="80">
+                                    <img class="img-fluid mr-4" src="{% static "" %}/aceinvestors/NemishShah.jpg" alt="image" height="80" width="80">
                                     <div class="media-body">
                                         <div class="s-report-title d-flex justify-content-between">
-                                            <h4> Rakesh Jhunjhunwala</h4>
+                                            <h4> Nemish Shah</h4>
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
                                             <p>Rakesh Jhunjhunwala, also known as the ‘big bull’ or ‘Indian Warren Buffett’, is one of the most successful stock market player in India. According to the latest update on Forbes in June 2019, the net worth of Rakesh Jhunjhunwala is $3.1 Billion, which is equivalent to over Rs 19,000 Crores. <br><br>Mr Jhunjhunwala began investing in stocks in 1985 when the Bombay Stock Exchange Index was at 150; it now trades over 40,000. Currently, he manages a privately owned stock trading firm called ‘RARE Enterprises’.</p>
@@ -53,45 +53,6 @@
 
                                                 After graduation, he again discussed his career goal as a stock market investor with his father. To this, his father replied that he is permitted to pursue any career. However, he also added that he’s not going to give him any money, nor he can ask the initial capital from any of his father’s friends.
 
-                                                <br><br><h6>Entering the stock market world:</h6>
-                                                Mr. Rakesh Jhunjhunwala entered the stock market with just Rs 5,000 in 1985. At that time, Sensex was at 150 points (currently Sensex is hovering at 35,000 points).
-
-                                                Nevertheless, soon Rakesh Jhunjhunwala was able to take an amount of Rs 2.5 lakhs from one of his brother’s client by promising to give higher returns compared to the fixed deposits.
-
-                                                Rakesh Jhunjhunwala’s first big profit was Rs 0.5 million in 1986. He bought 5,000 shares of Tata Tea at Rs 43 and within 3 months it was trading at Rs 143. He made a profit of over 3 times by selling the stocks of Tata tea.
-
-                                                In the next few years. Rakesh Jhunjhunwala made a number of good profits from stocks. Between 1986-89, he earned Rs 20-25 lakhs.
-
-                                                His next big investment was Sesa Goa, which he initially bought at Rs 28 and then increased his investment at Rs 35. Soon, the stock rallied to Rs 65.
-                                                <br><br><h6>Multi-baggers stocks in Rakesh Jhunjhunwala's Portfolio:</h6>
-                                                Rakesh Jhunjhunwala manages a privately owned stock trading firm called 'RARE Enterprises'. The name is derived from the first two initials of his name and his wife Mrs. Rekha Jhunjhunwala’s name.
-
-                                                During his long career in the stock market, Rakesh Jhunjhunwala invested in a number of multi-bagger stocks.
-
-                                                In 2002-03, Rakesh Jhunjhunwala bought ‘Titan Company Limited’ at an average price of Rs 3 and currently it is trading at a price of Rs 817. He is holding over 7.5 crore shares of titan company. He has an 'overall' holding of 8.45% in the company.
-
-                                                In 2006, he invested in LUPIN and his average purchase price was Rs 150. Today, LUPIN is trading at Rs 822.20
-
-                                                Few other multi-baggers in Rakesh Jhunjhunwala’s portfolio are CRISIL, PRAJ IND, Aurobindo Pharma, NCC etc.
-
-                                                <br><br><h6>Philosophy:</h6>
-
-                                                Rakesh Jhunjhunwala considers himself as both trader and a long-term investor.
-
-                                                Here’s a quote from his interview with Economic times:
-
-                                                <strong>“Short-term trading is for short-term gain. Long-term trading is for long-term capital formation. Trading is what gives you the capital to invest. My trading also helps my investing in the sense I use a lot of technical analysis for trading at times.</strong>
-
-                                                <strong>If the stock is overpriced, I should sell but my trading skills tell me that the stock can remain overvalued or get more overvalued. Hence, I hold on to my investments.</strong>
-
-                                                <strong>So, I think they complement each other in many ways but they are two distinct compartments totally.“</strong>
-
-                                                <br><br>Further, apart from being in the board of directors of big companies like Prime Focus Ltd, Geojit BNP Paribas financial services, Praj Industries, Concord Biotech etc, Rakesh Jhunjhunwala is also a movie producer. He has produced movies like 'English-Vinglish', 'Shamitabh', 'Ki and Ka'. He is the chairman of Hungama Digital media entertainment Pvt Ltd.
-
-                                                Overall, Rakesh Jhunjhunwala success story is really inspiring for the new and old investors. In the end, here’s an amazing quote by Rakesh Jhunjhunwala: <strong>"Passionate investors always make money in stock markets. You will never fail in any work if you do it with passion."</strong>
-
-
-
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -122,12 +83,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {% for rjp in rjp  %}
+                                            {% for nemishshah in nemishshah  %}
                                             <tr>
-                                                <td>{{ rjp.company_name }}</td>
-                                                <td>{{ rjp.total_quantity_held }}</td>
-                                                <td>{{ rjp.Holding_percent }}</td>
-                                                <td>{{ rjp.Change_last_quarter }}</td>
+                                                <td>{{ nemishshah.company_name }}</td>
+                                                <td>{{ nemishshah.total_quantity_held }}</td>
+                                                <td>{{ nemishshah.Holding_percent }}</td>
+                                                <td>{{ nemishshah.Change_last_quarter }}</td>
                                             </tr>
                                             {% endfor %}
 
