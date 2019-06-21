@@ -87,6 +87,32 @@
                 </div>
             </div>
         </div>
+
+    <!-- News feed -->
+
+    <div class="col-12 mt-5">
+            <div class="card">
+                 <div class="card-body">
+
+                 <H1>Latest Financial News</H1><br><br>
+
+                     {% for articles in api.articles %}
+                     <div class="media mb-5">
+                                <img class="img-fluid mr-4" src="{{ articles.urlToImage }}" alt="{{ articles.source.name }}" width="150">
+                            <div class="media-body">
+                                <h4 class="mb-3">{{ articles.title }}</h4>
+                                {{ articles.description }}<br>
+                                <a href="{{ articles.url }}" class="btn btn-secondary" target="_blank">Read more here...</a>
+                            </div>
+                     </div>
+                     {% endfor %}
+
+                 </div>
+            </div>
+    </div>
+
+
+
     </div>
     <!-- dashboard options area end -->
 
