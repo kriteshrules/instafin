@@ -98,11 +98,11 @@
 
                      {% for articles in api.articles %}
                      <div class="media mb-5">
-                                <img class="img-fluid mr-4" src="{{ articles.urlToImage }}" alt="{{ articles.source.name }}" width="150">
+                                <img class="img-fluid mr-4" src="{{ articles.urlToImage }}" alt="{{ articles.source.name }}" width="100">
                             <div class="media-body">
                                 <h4 class="mb-3">{{ articles.title }}</h4>
                                 {{ articles.description }}<br>
-                                <a href="{{ articles.url }}" class="btn btn-secondary" target="_blank">Read more here...</a>
+                                <a href="{{ articles.url }}" class="btn btn-light" target="_blank">Read more</a>
                             </div>
                      </div>
                      {% endfor %}
