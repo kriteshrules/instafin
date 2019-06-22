@@ -11,7 +11,3 @@ def home(request):
         'title': 'Dashboard'
     }
     return render(request, 'dashboard/dashboard.html', context)
-
-
-def price(request):
-    return render(request, 'dashboard/stockdetail.html', {'title': 'stock detail'})
