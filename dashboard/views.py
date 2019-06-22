@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 
 def home(request):
@@ -13,3 +12,6 @@ def home(request):
     }
     return render(request, 'dashboard/dashboard.html', context)
 
+
+def price(request):
+    return render(request, 'dashboard/stockdetail.html', {'title': 'stock detail'})

@@ -7,4 +7,12 @@ def stocks_home(request):
 
 
 def stock_detail(request):
-    return  render(request, 'stocks/stock_detail.html', {'title': 'Stock Detail'})
+    quote = request.POST['quote']
+    context = {
+        'title': 'Stock detail',
+        'quote': quote
+    }
+    return render(request, 'stocks/stock_detail.html', context)
+
+
+
