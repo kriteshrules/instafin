@@ -1,8 +1,30 @@
 {% extends "dashboard/base.html" %}
 {% block content %}
+{% load crispy_forms_tags %}
 
 <div class="main-content-inner">
                 <div class="row">
+
+                    <!-- Start of watchlist form-->
+                <div class="col-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1>Add stock to watchlist</h1>
+                            <form method="POST">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                    <!-- End of watchlist form-->
+
+
+                    <!-- Start of watchlist table-->
+
                 <div class="col-12 mt-5">
                     <div class="card">
                         <div class="card-body">
@@ -16,19 +38,19 @@
                                             <th>Current Price (Rs)</th>
                                             <th>Target Price (Rs)</th>
                                             <th>PE Ratio</th>
-                                            <th>Status</th>
+                                            <th>Comment</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for x in watchlist %}
                                         <tr>
-                                            <td>HPCL</td>
+                                            <td>{{ x.stock_name }}</td>
                                             <td>69,000</td>
                                             <td>321</td>
-                                            <td>280</td>
+                                            <td>{{ x.target_price }}</td>
                                             <td>15.56</td>
-                                            </td>
-                                            <td><span class="status-p bg-warning">In-Range</span></td>
+                                            <td>{{ x.comment }}</td>
                                             <td>
                                                 <ul class="d-flex justify-content-center">
                                                     <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
@@ -36,155 +58,7 @@
                                                 </ul>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>Yes Bank</td>
-                                            <td>77,842</td>
-                                            <td>171</td>
-                                            <td>186</td>
-                                            <td>18.05</td>
-                                            </td>
-                                            <td><span class="status-p bg-warning">In-Range</span></td>
-                                            <td>
-                                                <ul class="d-flex justify-content-center">
-                                                    <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Apollo Tyres</td>
-                                            <td>22,510</td>
-                                            <td>286</td>
-                                            <td>310</td>
-                                            <td>19.85</td>
-                                            </td>
-                                            <td><span class="status-p bg-success">Undervalued</span></td>
-                                            <td>
-                                                <ul class="d-flex justify-content-center">
-                                                    <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Marico</td>
-                                            <td>55,710</td>
-                                            <td>311</td>
-                                            <td>296</td>
-                                            <td>38.56</td>
-                                            </td>
-                                            <td><span class="status-p bg-warning">In-Range</span></td>
-                                            <td>
-                                                <ul class="d-flex justify-content-center">
-                                                    <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Maruti Suzuki</td>
-                                            <td>56,657</td>
-                                            <td>6,712</td>
-                                            <td>5,811</td>
-                                            <td>18.56</td>
-                                            </td>
-                                            <td><span class="status-p bg-warning">In-Range</span></td>
-                                            <td><ul class="d-flex justify-content-center">
-                                                <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                                <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
-                                            </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hindustan Unilever</td>
-                                            <td>67,786</td>
-                                            <td>1,821</td>
-                                            <td>1,400</td>
-                                            <td>43.11</td>
-                                            </td>
-                                            <td><span class="status-p bg-warning">In-Range</span></td>
-                                            <td>
-                                                <ul class="d-flex justify-content-center">
-                                                    <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tata Motors</td>
-                                            <td>78,986</td>
-                                            <td>190</td>
-                                            <td>210</td>
-                                            <td>14.11</td>
-                                            </td>
-                                            <td><span class="status-p bg-success">Undervalued</span></td>
-                                            <td>
-                                                <ul class="d-flex justify-content-center">
-                                                    <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Godrej Industries</td>
-                                            <td>31,564</td>
-                                            <td>401</td>
-                                            <td>423</td>
-                                            <td>38.46</td>
-                                            </td>
-                                            <td><span class="status-p bg-success">Undervalued</span></td>
-                                            <td>
-                                                <ul class="d-flex justify-content-center">
-                                                    <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>HDFC Bank</td>
-                                            <td>99,256</td>
-                                            <td>2,457</td>
-                                            <td>1,900</td>
-                                            <td>21.56</td>
-                                            </td>
-                                            <td><span class="status-p bg-warning">In-Range</span></td>
-                                            <td>
-                                                <ul class="d-flex justify-content-center">
-                                                    <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashok Leyland</td>
-                                            <td>21,065</td>
-                                            <td>86</td>
-                                            <td>90</td>
-                                            <td>13.11</td>
-                                            </td>
-                                            <td><span class="status-p bg-success">Undervalued</span></td>
-                                            <td>
-                                                <ul class="d-flex justify-content-center">
-                                                    <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="titan.html">Titan Industries</a></td>
-                                            <td>37,800</td>
-                                            <td>1,342</td>
-                                            <td>1,100</td>
-                                            <td>47.11</td>
-                                            </td>
-                                            <td><span class="status-p bg-warning">In-Range</span></td>
-                                            <td>
-                                                <ul class="d-flex justify-content-center">
-                                                    <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
-                                                </ul>
-                                            </td>
-                                        </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
