@@ -1,12 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from .forms import WatchlistForm
 from django.views.generic import ListView
-from django.contrib.auth.decorators import login_required
 from .models import WatchList
 from django.contrib import messages
-from django.contrib.auth.models import User
 
-#@login_required
 class StockListView(ListView):
     template_name = 'watchlist/watchlist.html'
     model = WatchList
