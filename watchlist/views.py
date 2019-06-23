@@ -14,12 +14,11 @@ class StockListView(ListView):
 
     def get(self, request):
         form = WatchlistForm()
-        #current_user = request.user
-        #user_id = current_user.id
+        current_user = request.user
         context = {
             'form': form,
             'title': 'Watchlist',
-            'watchlist': WatchList.objects.all()
+            'watchlist': current_user.watchlist_set.all()
         }
         return render(request, self.template_name, context)
 
