@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 import tweepy
 from textblob import TextBlob
 from django.contrib.auth.decorators import login_required
@@ -25,39 +24,34 @@ def sentiment(request):
 
     public_tweets = api.search(keyword)
 
-    #for tweet in public_tweets:
-        #twee = (tweet.text)
-        #analysis = TextBlob(tweet.text)
-        #ana= analysis.sentiment
-    #return render(request, 'sentiment/analysis.html', {'tweet':twee})
-
-    N = 1000  # Number of Tweets
+    N = 100  # Number of Tweets
     Tweets = tweepy.Cursor(api.search, keyword).items(N)
     neg = 0.0
     pos = 0.0
     neg_count = 0
     neutral_count = 0
     pos_count = 0
+    tweetp = []
+    tweetn = []
+
     for tweet in Tweets:
         # print tweet.text
         blob = TextBlob(tweet.text)
         if blob.sentiment.polarity < 0:  # Negative
             neg += blob.sentiment.polarity
             neg_count += 1
+            tweetn.append(tweet.text)
         elif blob.sentiment.polarity == 0:  # Neutral
             neutral_count += 1
         else:  # Positive
             pos += blob.sentiment.polarity
             pos_count += 1
+            tweetp.append(tweet.text)
 
-    total_tweets = N
-    #positive = round((float(pos_count/N)*100), 2)
-    #negative = round((float(neg_count/N)*100), 2)
-    #neutral = round((float(neutral_count/N)*100), 2)
+    newtweetn = list(set(tweetn))
+    newtweetp = list(set(tweetp))
 
-    #return [['Sentiment', 'no. of tweets'], ['Positive', pos_count], ['Neutral', neutral_count], ['Negative', neg_count]]
-
-    return render(request, 'sentiment/analysis.html', {'pos_count':pos_count, 'neg_count':neg_count,
+    return render(request, 'sentiment/analysis.html', {'newtweetn':newtweetn, 'newtweetp':newtweetp, 'pos_count':pos_count, 'neg_count':neg_count,
                                                        'neutral_count':neutral_count, 'keyword': keyword,
                                                        'title': 'Analysis Result'})
 
