@@ -2,7 +2,7 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<div class="main-content-inner">
+<div class="main-content-inner" xmlns="http://www.w3.org/1999/html">
                 <div class="row">
 
                     <!-- Start of watchlist form-->
@@ -34,10 +34,8 @@
                                     <thead class="bg-light text-capitalize">
                                         <tr>
                                             <th>Name</th>
-                                            <th>Market Cap (Rs Cr)</th>
                                             <th>Current Price (Rs)</th>
                                             <th>Target Price (Rs)</th>
-                                            <th>PE Ratio</th>
                                             <th>Comment</th>
                                             <th>Action</th>
                                         </tr>
@@ -46,15 +44,17 @@
                                         {% for x in watchlist %}
                                         <tr>
                                             <td>{{ x.stock_name }}</td>
-                                            <td>69,000</td>
                                             <td>321</td>
                                             <td>{{ x.target_price }}</td>
-                                            <td>15.56</td>
                                             <td>{{ x.comment }}</td>
                                             <td>
                                                 <ul class="d-flex justify-content-center">
-                                                    <li class="mr-3"><a href="#" class="text-secondary"><i class="fa fa-edit"></i></a></li>
-                                                    <li><a href="#" class="text-danger"><i class="ti-trash"></i></a></li>
+                                                    <li>
+                                                        <form action="{% url 'delete_view' pk=x.pk %}" method="POST">
+                                                          {% csrf_token %}
+                                                            <button class="btn fa fa-trash" type="submit" value="Delete"/></button>
+                                                        </form>
+                                                    </li>
                                                 </ul>
                                             </td>
                                         </tr>

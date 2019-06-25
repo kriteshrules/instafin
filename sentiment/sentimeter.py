@@ -1,14 +1,8 @@
-from django.shortcuts import render
 import tweepy
 from textblob import TextBlob
-from django.contrib.auth.decorators import login_required
 
 
-@login_required
-def home(request):
-    return render(request, 'sentiment/sentiment.html', {'title': 'Sentiment Analysis'})
-
-def sentiment(request):
+def primary(input_hashtag):
     consumer_key = 'LnNMAVgk4sg8oFuzi0A7OqNmm'
     consumer_secret = 'eldO1tzF61vN9d5oLjTv2K50cFAUQhN7tShJVpIkeTVVK9fJHI'
 
@@ -20,12 +14,8 @@ def sentiment(request):
 
     api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
-    keyword = request.POST['keyword']
-
-    public_tweets = api.search(keyword)
-
-    N = 1000  # Number of Tweets
-    Tweets = tweepy.Cursor(api.search, keyword).items(N)
+    N = 100  # Number of Tweets
+    Tweets = tweepy.Cursor(api.search, q=input_hashtag).items(N)
     neg = 0.0
     pos = 0.0
     neg_count = 0
@@ -51,10 +41,7 @@ def sentiment(request):
     newtweetn = list(set(tweetn))
     newtweetp = list(set(tweetp))
 
-    context = {
-        'newtweetn':newtweetn, 'newtweetp':newtweetp, 'pos_count':pos_count,
-        'neg_count':neg_count,'neutral_count':neutral_count, 'keyword': keyword,
-        'title': 'Analysis Result'
-    }
+    #return newtweetn, newtweetp, pos_count, neg_count, neutral_count, input_hashtag
 
-    return render(request, 'sentiment/analysis.html', context)
+    return [['newtweetn', newtweetn], ['newtweetp', newtweetp], ['pos_count', pos_count], ['neg_count', neg_count],
+            ['neutral_count', neutral_count], ['keyword', input_hashtag], ['title', 'Analysis Result']]

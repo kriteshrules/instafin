@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from .forms import WatchlistForm
-from django.views.generic import ListView
+from django.views.generic import ListView, DeleteView
 from .models import WatchList
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 
 class StockListView(ListView):
     template_name = 'watchlist/watchlist.html'
@@ -37,9 +38,25 @@ class StockListView(ListView):
             'title': 'Watchlist',
             'stock_name': stock_name,
             'target_price': target_price,
-            'comment': comment
+            'comment': comment,
+            'watchlist': request.user.watchlist_set.all()
         }
         return render(request, self.template_name, args)
+
+
+class DeleteView(SuccessMessageMixin, DeleteView):
+    model = WatchList
+    success_url = '/watchlist/'
+    success_message = "deleted..."
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        stock_name = self.object.stock_name
+        request.session['stock_name'] = stock_name  # name will be change according to your need
+        message = request.session['stock_name'] + ' deleted successfully'
+        messages.success(self.request, message)
+        return super(DeleteView, self).delete(request, *args, **kwargs)
+
 
 
 
