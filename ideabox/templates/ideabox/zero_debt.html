@@ -1,0 +1,67 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="main-content-inner">
+    <div class="row">
+
+
+                <!-- Large modal start -->
+                    <div class="col-12 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="media mb-6">
+                                    <img class="img-fluid mr-4" src="{% static "" %}dashboard/assets/images/thematic/digital-india.png" alt="image" height="80" width="80">
+                                    <div class="media-body">
+                                        <div class="s-report-title d-flex justify-content-between">
+                                            <h4>Zero Debt Companies</h4>
+                                        </div>
+                                        <div class="d-flex justify-content-between pb-2">
+                                            <p>Financially strong stocks with a history of consistently higher dividends and strong fundamentals.</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Large modal modal end -->
+
+
+
+     <!-- Primary table start -->
+                    <div class="col-12 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title">Zero debt companies</h4>
+                                <div class="data-tables datatable-primary">
+                                    <table id="dataTable2" class="text-center">
+                                        <thead class="text-capitalize">
+                                            <tr>
+                                                <th>Company Name</th>
+                                                <th>Market Cap</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for x in zerodebt  %}
+                                            <tr>
+                                                <td>{{ x.stock_name }}</td>
+                                                <td>72,000</td>
+                                                <td>{{ x.comment }}</td>
+                                            </tr>
+                                            {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Primary table end -->
+    </div>
+</div>
+
+
+{% endblock content %}

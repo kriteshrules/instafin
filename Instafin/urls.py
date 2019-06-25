@@ -39,6 +39,7 @@ urlpatterns = [
     path('home/', include('home.urls')),
     path('', dash_views.home, name="dashboard-home"),
     path('ideabox/', ideabox_views.home, name="ideabox-home"),
+    path('ideabox/', include('ideabox.urls')),
     path('thematic/', thematic_views.home, name="thematic-home"),
     path('thematic/', include('thematic.urls')),
     path('ace-investors/', aceinvestors_views.home, name="aceinvestors-home"),

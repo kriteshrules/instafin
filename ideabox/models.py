@@ -10,3 +10,52 @@ class Ideabox(models.Model):
 
     def __str__(self):
         return self.idea_name
+
+
+class DividendChampions(models.Model):
+    stock_name = models.CharField(max_length=100)
+    comment = models.TextField()
+
+    def __str__(self):
+        return self.stock_name
+
+
+class HighRiskReward(models.Model):
+    stock_name = models.CharField(max_length=100)
+    comment = models.TextField()
+
+    def __str__(self):
+        return self.stock_name
+
+
+class StockMonth(models.Model):
+    stock_name = models.CharField(max_length=100)
+    comment = models.TextField()
+
+    def __str__(self):
+        return self.stock_name
+
+
+class TopLargecaps(models.Model):
+    stock_name = models.CharField(max_length=100)
+    comment = models.TextField()
+
+    def __str__(self):
+        return self.stock_name
+
+
+class UndervaluedStocks(models.Model):
+    stock_name = models.CharField(max_length=100)
+    comment = models.TextField()
+
+    def __str__(self):
+        return self.stock_name
+
+
+class ZeroDebt(models.Model):
+    stock_name = models.CharField(max_length=100)
+    comment = models.TextField()
+
+    def __str__(self):
+        return self.stock_name
+
