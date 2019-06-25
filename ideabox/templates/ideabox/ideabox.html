@@ -6,117 +6,30 @@
                 <!--Start of idea box ideas -->
      <div class="sales-report-area mt-5 mb-5">
             <div class="row">
+                <!-- start of ideas-->
+                {% for x in ideabox  %}
                 <div class="col-md-6">
                     <div class="single-report mb-xs-30">
                         <div class="s-report-inner pr--20 pt--30 mb-3">
-                            <div class="icon"><i class="fa fa-trophy"></i></div>
+                            <div class="icon"><i class="{{ x.image }}"></i></div>
                             <div class="s-report-title d-flex justify-content-between">
-                                <h4 class="header-title mb-0">Stock of the Month</h4>
-                                <p>1 Stock</p>
+                                <h4 class="header-title mb-0">{{ x.idea_name }}</h4>
+                                <p>{{ x.stock_no }} Stock</p>
                             </div>
                             <div class="d-flex justify-content-between pb-2">
-                                <h2>Check out our comprehensive study of the one stock that we are most excited about right now</h2>
+                                <h2>{{ x.description }}</h2>
                             </div>
-                            <a href="ideabox.html"><button type="button" class="btn btn-primary btn-lg mb-3">Browse stocks</button></a>
+                            <a href="{{ x.explore }}"><button type="button" class="btn btn-light btn-lg mb-3">Browse stocks</button></a>
 
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="single-report mb-xs-30">
-                        <div class="s-report-inner pr--20 pt--30 mb-3">
-                            <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
-                            <div class="s-report-title d-flex justify-content-between">
-                                <h4 class="header-title mb-0">Top 1% Largecaps</h4>
-                                <p>18 Stocks</p>
-                            </div>
-                            <div class="d-flex justify-content-between pb-2">
-                                <h2>Handpicked top 1% stocks from over 5,000 publically listed companies in Indian stock market</h2>
-                            </div>
-                            <a href="thematic.html"><button type="button" class="btn btn-primary btn-lg mb-3">Browse Stocks</button></a>
-                        </div>
-                    </div>
-                </div>
+                <div></div>
+                {% endfor %}
 
             </div>
         </div>
         <!-- End of ideabox row1 -->
-        <!--Start of idea box ideas -->
-         <div class="sales-report-area mt-5 mb-5">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="single-report mb-xs-30">
-                            <div class="s-report-inner pr--20 pt--30 mb-3">
-                                <div class="icon"><i class="fa fa-magnet"></i></div>
-                                <div class="s-report-title d-flex justify-content-between">
-                                    <h4 class="header-title mb-0">Dividend Champions</h4>
-                                    <p>14 Stocks</p>
-                                </div>
-                                <div class="d-flex justify-content-between pb-2">
-                                    <h2>Finacially strong stocks with a history of consistently higher dividends</h2>
-                                </div>
-                                <a href="ideabox.html"><button type="button" class="btn btn-primary btn-lg mb-3">Browse stocks</button></a>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="single-report mb-xs-30">
-                            <div class="s-report-inner pr--20 pt--30 mb-3">
-                                <div class="icon"><i class="fa fa-hourglass-end"></i></div>
-                                <div class="s-report-title d-flex justify-content-between">
-                                    <h4 class="header-title mb-0">Undervalued stocks</h4>
-                                    <p>22 Stocks</p>
-                                </div>
-                                <div class="d-flex justify-content-between pb-2">
-                                    <h2>Ignored or disliked stocks with well-built business model & efficient management</h2>
-                                </div>
-                                <a href="thematic.html"><button type="button" class="btn btn-primary btn-lg mb-3">Browse Stocks</button></a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <!-- End of ideabox row2 -->
-            <!--Start of idea box ideas -->
-             <div class="sales-report-area mt-5 mb-5">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="single-report mb-xs-30">
-                                <div class="s-report-inner pr--20 pt--30 mb-3">
-                                    <div class="icon"><i class="fa fa-balance-scale"></i></div>
-                                    <div class="s-report-title d-flex justify-content-between">
-                                        <h4 class="header-title mb-0">Zero-debt Companies</h4>
-                                        <p>17 Stocks</p>
-                                    </div>
-                                    <div class="d-flex justify-content-between pb-2">
-                                        <h2>Large-cap Indian companies with zero debt and strong balance sheet</h2>
-                                    </div>
-                                    <a href="ideabox.html"><button type="button" class="btn btn-primary btn-lg mb-3">Browse stocks</button></a>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="single-report mb-xs-30">
-                                <div class="s-report-inner pr--20 pt--30 mb-3">
-                                    <div class="icon"><i class="fa fa-line-chart"></i></div>
-                                    <div class="s-report-title d-flex justify-content-between">
-                                        <h4 class="header-title mb-0">High Risk/High Reward</h4>
-                                        <p>17 Stocks</p>
-                                    </div>
-                                    <div class="d-flex justify-content-between pb-2">
-                                        <h2>Potentilly multi-bagger companies with rapid expansion and high earnings growth</h2>
-                                    </div>
-                                    <a href="thematic.html"><button type="button" class="btn btn-primary btn-lg mb-3">Browse Stocks</button></a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <!-- End of ideabox row3 -->
 </div>
 
 {% endblock content %}

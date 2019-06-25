@@ -1,9 +1,15 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from .models import BSEStocks, NSEStocks
 
 
 def stocks_home(request):
-    return render(request, 'stocks/stock.html', {'title': 'Stocks Home'})
+    context = {
+        'BSEStocks': BSEStocks.objects.all(),
+        'NSEStocks': NSEStocks.objects.all(),
+        'title': 'Stocks Home'
+    }
+    return render(request, 'stocks/stock.html', context)
 
 
 def stock_detail(request):
