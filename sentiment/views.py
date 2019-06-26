@@ -111,7 +111,8 @@ def googlesentiment(request):
         "gheadline_neg": analysis.gheadline_neg,
         "pos_count": analysis.pos_count,
         "neg_count": analysis.neg_count,
-        "neu_count": analysis.neu_count
+        "neu_count": analysis.neu_count,
+        "title": 'Google Sentiment'
     }
     return render(request, 'sentiment/google_sentiment.html', context)
 
