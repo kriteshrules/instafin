@@ -7,14 +7,14 @@
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Tweets', 'No of tweets'],
+          ['News', 'No of news'],
           ['Positive', {{ pos_count }}],
           ['Negative', {{ neg_count }}],
-          ['Neutral', {{ neutral_count }}]
+          ['Neutral', {{ neu_count }}]
         ]);
 
         var options = {
-          title: 'Twitter Sentiment Analysis',
+          title: 'Google News Sentiment Analysis',
           is3D: true,
         };
 
@@ -29,12 +29,13 @@
         <div class="col-lg-6 mt-5">
             <div class="card">
                 <div class="card-body">
-                        <h4 class="header-title">Result (Keyword: {{ keyword }})</h4>
+                        <h4 class="header-title">Result (keyword: {{ Term }})</h4>
                         <div id="piechart_3d" style="width: 480px; height: 480px;"></div>
 
-                        <p align="center">*Quick Note: Our sentiment analysis tool is still in learning phase which means that some
-                            of the tweets may not be categorized correctly. However, as we analyze more data with time, our
-                            machine will learn and give better results.</p><br><br>
+                        <p>
+                            The overall sentiment is {{ Sentiment }} and subjectivity is {{ Subjectivity }}. <br> <br> {The sentiment is a floating number within the range [-1.0, 1.0] where -1 is extreme negative and +1 is extreme positive. And, the subjectivity is a floating number within the range [0.0, 1.0] where 0.0 is very objective and 1.0 is very subjective.}
+                            <br><br>*Note that the analysis is based only in english language news.
+                        </p><br><br>
                 </div>
             </div>
         </div>
@@ -42,27 +43,33 @@
         <div class="col-lg-6 mt-5">
             <div class="card">
                 <div class="card-body">
-                        <h4 class="header-title">Tweets for: {{ keyword }}</h4>
+                        <h4 class="header-title">Google News: {{ Term }}</h4>
 
                         <div class="data-tables">
                             <table id="dataTable" class="text-left">
                                 <thead class="bg-light text-capitalize">
                                     <tr>
-                                        <th>Top tweets</th>
+                                        <th>Top Google News</th>
                                         <th>Comment</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {% for y in newtweetn %}
+                                {% for y in gheadline_pos %}
                                 <tr>
                                     <td>{{ y }}</td>
+                                    <td>Positive</td>
+                                </tr>
+                                {% endfor %}
+                                {% for z in gheadline_neg %}
+                                <tr>
+                                    <td>{{ z }}</td>
                                     <td>Negative</td>
                                 </tr>
                                 {% endfor %}
-                                {% for z in newtweetp %}
+                                {% for x in gheadline_neu %}
                                 <tr>
-                                    <td>{{ z }}</td>
-                                    <td>Positive</td>
+                                    <td>{{ x }}</td>
+                                    <td>Neutral</td>
                                 </tr>
                                 {% endfor %}
                                 </tbody>
