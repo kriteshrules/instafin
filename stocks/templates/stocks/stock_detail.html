@@ -2,6 +2,43 @@
 {% block content %}
 {% load static %}
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['News', 'No of news'],
+          ['Positive', {{ pos_count }}],
+          ['Negative', {{ neg_count }}],
+          ['Neutral', {{ neu_count }}]
+        ]);
+
+        var data2 = google.visualization.arrayToDataTable([
+          ['News', 'No of tweets'],
+          ['Positive', {{ pos_countt }}],
+          ['Negative', {{ neg_countt }}],
+          ['Neutral', {{ neutral_count }}]
+        ]);
+
+        var options = {
+          title: 'Google News Sentiment Analysis',
+          is3D: true,
+        };
+
+        var options2 = {
+          title: 'Twitter Sentiment Analysis',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_google'));
+        chart.draw(data, options);
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_twitter'));
+        chart.draw(data2, options2);
+      }
+</script>
+
 <div class="main-content-inner">
                 <div class="row">
 
@@ -85,49 +122,121 @@
                                     "colorTheme": "light",
                                     "isTransparent": true,
                                     "locale": "en"
-                                }
+                                     }
                                     </script>
                                 </div>
                                 <!-- TradingView Widget END -->
                             </div>
                         </div>
                     </div>
-                </div>
 
+                    <!-- Google News Sentiment analysis modal start -->
+                    <div class="col-lg-6 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                    <h4 class="header-title">Result (keyword: {{ Term }})</h4>
+                                    <div id="piechart_google" style="width: 480px; height: 480px;"></div>
 
-
-                     <!-- trading history area start --><br>
-                        <div class="col-lg-12 mt-sm-30 mt-xs-30">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-sm-flex justify-content-between align-items-center">
-                                        <!-- TradingView Widget BEGIN -->
-                                        <div class="tradingview-widget-container">
-                                            <div class="tradingview-widget-container__widget"></div>
-                                            <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BSE-{{quote}}/" rel="noopener" target="_blank"><span class="blue-text">{{quote}} Data</span></a> by TradingView</div>
-                                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>
-                                            {
-                                            "symbol": "BSE:{{quote}}",
-                                            "colorTheme": "light",
-                                            "isTransparent": true,
-                                            "largeChartUrl": "",
-                                            "displayMode": "regular",
-                                            "width": "100%",
-                                            "height": "830",
-                                            "locale": "en"
-                                        }
-                                            </script>
-                                        </div>
-                                        <!-- TradingView Widget END -->
-                                    </div>
-                                </div>
+                                    <p>
+                                        The overall sentiment is {{ Sentiment }} and subjectivity is {{ Subjectivity }}. <br> <br> {The sentiment is a floating number within the range [-1.0, 1.0] where -1 is extreme negative and +1 is extreme positive. And, the subjectivity is a floating number within the range [0.0, 1.0] where 0.0 is very objective and 1.0 is very subjective.}
+                                        <br><br>*Note that the analysis is based only in english language news.
+                                    </p><br><br>
                             </div>
                         </div>
-                        <!-- trading history area end -->
+                    </div>
+
+                    <div class="col-lg-6 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                    <h4 class="header-title">Google News: {{ Term }}</h4>
+
+                                    <div class="data-tables">
+                                        <table id="dataTable2" class="text-left">
+                                            <thead class="bg-light text-capitalize">
+                                                <tr>
+                                                    <th>Top Google News</th>
+                                                    <th>Link</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for z in gheadline_pos %}
+                                            <tr>
+                                                <td>{{ z }}</td>
+                                                <td>Positive</td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% for z in gheadline_neg %}
+                                            <tr>
+                                                <td>{{ z }}</td>
+                                                <td>Negative</td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% for x in gheadline_neu %}
+                                            <tr>
+                                                <td>{{ x }}</td>
+                                                <td>Neutral</td>
+                                            </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Google News Sentiment analysis modal end -->
+
+                    <!-- Twitter Sentiment modal start -->
+                                <div class="col-lg-6 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                    <h4 class="header-title">Result (Keyword: {{ keyword }})</h4>
+                                    <div id="piechart_twitter" style="width: 480px; height: 480px;"></div>
+
+                                    <p align="center">*Quick Note: Our sentiment analysis tool is still in learning phase which means that some
+                                        of the tweets may not be categorized correctly. However, as we analyze more data with time, our
+                                        machine will learn and give better results.</p><br><br>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                    <h4 class="header-title">Tweets for: {{ keyword }}</h4>
+
+                                    <div class="data-tables">
+                                        <table id="dataTable3" class="text-left">
+                                            <thead class="bg-light text-capitalize">
+                                                <tr>
+                                                    <th>Top tweets</th>
+                                                    <th>Comment</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for y in newtweetn %}
+                                            <tr>
+                                                <td>{{ y }}</td>
+                                                <td>Negative</td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% for z in newtweetp %}
+                                            <tr>
+                                                <td>{{ z }}</td>
+                                                <td>Positive</td>
+                                            </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Twitter sentiment modal end -->
+
 
                 </div>
-            </div>
-        </div>
+</div>
+</div>
         <!-- main content area end -->
 
 

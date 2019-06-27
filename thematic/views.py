@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Thematic, DigitalIndia, ElectricVehicles, EvergreenStocks, HalalStocks, IncredibleIndia, SmartCities, SociallyResponsible
-
+from sentiment.googlesentiment import Analysis
+from sentiment.sentimeter import TwitterSentiment
 
 
 @login_required
@@ -22,9 +23,32 @@ def digitalindia(request):
 
 
 def electricvehicles(request):
+    term = 'Electric+vehicles'
+    analysis = Analysis(term)
+    analysis.run()
+    keyword = 'electricvehicle'
+    twittersentiment = TwitterSentiment(keyword)
+    twittersentiment.run()
     context = {
         'electricvehicles': ElectricVehicles.objects.all(),
-        'title': 'Electric Vehicles'
+        'title': 'Electric Vehicles',
+        "Term": term,
+        "Sentiment": analysis.sentiment,
+        "Subjectivity": analysis.subjectivity,
+        "gheadline_pos": analysis.gheadline_pos,
+        "gheadline_neu": analysis.gheadline_neu,
+        "gheadline_neg": analysis.gheadline_neg,
+        "pos_count": analysis.pos_count,
+        "neg_count": analysis.neg_count,
+        "neu_count": analysis.neu_count,
+        "headings": analysis.headings,
+        "urls": analysis.urls,
+        "newtweetn": twittersentiment.newtweetn,
+        "newtweetp": twittersentiment.newtweetp,
+        'pos_countt': twittersentiment.pos_count,
+        'neg_countt': twittersentiment.neg_count,
+        'neutral_count': twittersentiment.neutral_count,
+        'keyword': keyword,
     }
     return render(request, 'thematic/electric_vehicles.html', context)
 

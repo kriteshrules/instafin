@@ -17,6 +17,7 @@ class Analysis:
         self.gheadline_pos = []
         self.gheadline_neu = []
         self.gheadline_neg = []
+        self.urls = []
         self.url = 'https://www.google.com/search?q=={0}&source=lnms&tbm=nws'.format(self.term)
 
     def run(self):
@@ -24,6 +25,7 @@ class Analysis:
         #print(response.text)
         soup = BeautifulSoup(response.text, 'html.parser')
         headline_results = soup.find_all('div', class_='st')
+        headline_url = soup.select('.r a')
         for h in headline_results:
             #print(h.text)
             blob = TextBlob(h.get_text())
@@ -39,6 +41,11 @@ class Analysis:
             elif blob.sentiment.polarity> 0:
                 self.gheadline_pos.append(h.text)
                 self.pos_count += 1
+
+        for link in headline_url:
+            actual_link = link.get('href')
+            url = 'https://google.com' + actual_link
+            self.urls.append(url)
 
 
 @login_required
@@ -112,7 +119,8 @@ def googlesentiment(request):
         "pos_count": analysis.pos_count,
         "neg_count": analysis.neg_count,
         "neu_count": analysis.neu_count,
-        "title": 'Google Sentiment'
+        "title": 'Google Sentiment',
+        'urls': analysis.urls
     }
     return render(request, 'sentiment/google_sentiment.html', context)
 

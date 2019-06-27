@@ -2,6 +2,7 @@ from textblob import TextBlob
 import requests
 from bs4 import BeautifulSoup
 
+
 class Analysis:
     def __init__(self, term):
         self.term = term
@@ -13,13 +14,17 @@ class Analysis:
         self.gheadline_pos = []
         self.gheadline_neu = []
         self.gheadline_neg = []
+        self.headings = []
+        self.urls = []
         self.url = 'https://www.google.com/search?q=={0}&source=lnms&tbm=nws'.format(self.term)
 
     def run(self):
         response = requests.get(self.url)
         #print(response.text)
         soup = BeautifulSoup(response.text, 'html.parser')
+        headline_heading = soup.find_all('h3', class_='r')
         headline_results = soup.find_all('div', class_='st')
+        headline_url = soup.select('.r a')
         for h in headline_results:
             #print(h.text)
             blob = TextBlob(h.get_text())
@@ -35,3 +40,14 @@ class Analysis:
             else:
                 self.gheadline_pos.append(h.text)
                 self.pos_count += 1
+
+        for head in headline_heading:
+            actual_head = head.text
+            self.headings.append(actual_head)
+
+        for link in headline_url:
+            actual_link = link.get('href')
+            url = 'https://google.com' + actual_link
+            self.urls.append(url)
+
+
