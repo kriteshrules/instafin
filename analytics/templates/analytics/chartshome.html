@@ -18,6 +18,9 @@ $.ajax({
         sectorsData = data.sectorsData
         holdings = data.holdings
         holdingsPercent = data.holdingsPercent
+        stocklist = data.stocklist
+        positivesent = data.positivesent
+        negativesent = data.negativesent
         setChart()
 
     },
@@ -31,9 +34,10 @@ function setChart(){
         var ctx = document.getElementById('myChart').getContext('2d');
         var ctx2 = document.getElementById('myChart2').getContext('2d');
         var ctx3 = document.getElementById('myChart3').getContext('2d');
+        var ctx4 = document.getElementById('myChart4').getContext('2d');
 
         var myChart = new Chart(ctx, {
-        type: 'pie',
+        type: 'doughnut',
         data: {
             labels: sectors,
             datasets: [{
@@ -58,19 +62,11 @@ function setChart(){
                 borderWidth: 1
             }]
         },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
+
         });
 
         var myChart2 = new Chart(ctx2, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: holdings,
             datasets: [{
@@ -107,7 +103,7 @@ function setChart(){
         });
 
         var myChart3 = new Chart(ctx3, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: defaultLabels,
             datasets: [{
@@ -142,6 +138,40 @@ function setChart(){
             }
         }
         });
+
+        var myChart4 = new Chart(ctx4, {
+        type: 'horizontalBar',
+        data: {
+            labels: stocklist,
+            datasets: [{
+				label: 'Positive',
+				backgroundColor: window.chartColors.blue,
+				stack: 'Stack 0',
+				data: positivesent
+			}, {
+				label: 'Negative',
+				backgroundColor: window.chartColors.red,
+				stack: 'Stack 0',
+				data: negativesent
+			}]
+        },
+        options: {
+					tooltips: {
+						mode: 'index',
+						intersect: false
+					},
+					responsive: true,
+					scales: {
+						xAxes: [{
+							stacked: true,
+						}],
+						yAxes: [{
+							stacked: true
+						}]
+					}
+				}
+        });
+
 }
 
 {% endblock %}
@@ -171,21 +201,14 @@ function setChart(){
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                   <h4 class="card-title">Your Financial Profile:</h4>
-                    <ul>
-                        <li><p>Age: 35 Years</p></li>
-                        <li><p>Your Risk Profile: Medium</p></li>
-                        <li><p>Expected Age of Retirement: 60 Years</p></li>
-                    </ul>
-                    <br><br>
-                    <h4 class="card-title">Your Wealth Status:</h4>
-                    <ul>
-                        <li><p>Your portfolio risk matches your risk profile</p></li>
-                        <li><p>Your total investment value: Rs 25 Lakhs</p></li>
-                        <li><p>Current Value of your investments: Rs 31 Lakhs</p></li>
-                        <li><p>Your Unrealized profit: Rs 6 Lakhs</p></li>
-                    </ul>
-
+                   <h4 class="card-title">Portfolio Sentiment:</h4>
+                    <canvas id="myChart4"></canvas><br><br>
+                    <h4 class="card-title">Returns:</h4>
+                    <canvas id="myChart3"></canvas><br><br>
+                    <h4 class="card-title">Top Holdings:</h4>
+                    <canvas id="myChart2"></canvas><br><br>
+                    <h4 class="card-title">Sectorial Distribution:</h4>
+                    <canvas id="myChart"></canvas><br><br>
                 </div>
             </div>
         </div>
@@ -195,8 +218,42 @@ function setChart(){
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                         <canvas id="myChart3"></canvas>
-                    <br><p align="center">Last 3 months:  0.7% | Last 6 months:  15.9% | Last 1 year:  12.2%</p>
+
+                    <h4 class="header-title">Your Stock Portfolio</h4>
+                            <div class="data-tables">
+                                <table id="dataTable" class="text-center">
+                                    <thead class="bg-light text-capitalize">
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Current Price (Rs)</th>
+                                            <th>Purchase Price</th>
+                                            <th>Quantity</th>
+                                            <th>Profit/Loss</th>
+                                            <th>Industry/Sector</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>HUL</td>
+                                            <td>1434</td>
+                                            <td>1234</td>
+                                            <td>100</td>
+                                            <td>20000</td>
+                                            <td>Consumer Good</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Infosys</td>
+                                            <td>656</td>
+                                            <td>718</td>
+                                            <td>80</td>
+                                            <td>4800</td>
+                                            <td>IT/Technology</td>
+                                        </tr>
+                                    </tbody>
+                            </table>
+
+                    <h4 class="card-title">Top News:</h4>
+
                 </div>
             </div>
         </div>
@@ -204,34 +261,8 @@ function setChart(){
     </div>
 </div>
 
-
-<div class="main-content-inner">
-    <div class="row">
-
-        <!-- First chart starts here -->
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                       <canvas id="myChart"></canvas>
-
-                </div>
-            </div>
-        </div>
-        <!-- First chart ends here -->
-
-        <!-- Second chart starts here -->
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                         <canvas id="myChart2"></canvas>
-
-                </div>
-            </div>
-        </div>
-        <!-- Second chart ends here -->
-    </div>
 </div>
 
-</div>
+<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
 {% endblock content %}

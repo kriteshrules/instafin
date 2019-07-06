@@ -22,12 +22,16 @@ class ChartData(APIView):
 
     def get(self, request, format=None):
         qs_count = User.objects.all().count()
-        defaultLabels = ["March", "April", "May", "June", "July"]
-        defaultData = [4, 7, 8, 6, 9]
-        sectors = ["Auto", "IT", "Pharma", "Banks", "Metals"]
-        sectorsData = [5, 7, 3, 8, 2]
+        defaultLabels = ["Feb", "March", "April", "May", "June", "July"]
+        defaultData = [-0.7,2.2, -0.4, 1.5, 3.2, 1.3]
+        sectors = ["Auto", "IT", "Pharma", "Banks", "Metals", "Energy", "Oil & Petro"]
+        sectorsData = [15, 10, 8, 35, 15, 5, 12]
         holdings = ["HUL", "Infosys", "Vedanta", "HDFC Bank", "Maruti"]
         holdingsPercent = [28, 13, 12, 8, 7]
+        stocklist = ["HUL", "Infosys", "Vedanta", "HDFC Bank", "Maruti", "HPCL", "Tata Steel"]
+        positivesent = [0.7, 0.6, 0.9, 0.8, 0.5, 0.4, 0.7]
+        negativesent = [0.3, 0.4, 0.1, 0.2, 0.5, 0.6, 0.3]
+
         data = {
             "defaultLabels": defaultLabels,
             "defaultData": defaultData,
@@ -35,5 +39,8 @@ class ChartData(APIView):
             "sectorsData": sectorsData,
             "holdings": holdings,
             "holdingsPercent": holdingsPercent,
+            "stocklist": stocklist,
+            "positivesent": positivesent,
+            "negativesent": negativesent
         }
         return Response(data)
