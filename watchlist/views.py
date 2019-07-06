@@ -5,10 +5,12 @@ from .models import WatchList
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 
+
 class StockListView(ListView):
     template_name = 'watchlist/watchlist.html'
     model = WatchList
-    context_object_name = 'watchlists'
+    context_object_name = 'watchlist'
+
 
     def get(self, request):
         form = WatchlistForm()
@@ -16,7 +18,7 @@ class StockListView(ListView):
         context = {
             'form': form,
             'title': 'Watchlist',
-            'watchlist': current_user.watchlist_set.all()
+            'watchlist': current_user.watchlist_set.all(),
         }
         return render(request, self.template_name, context)
 

@@ -48,7 +48,10 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'stocks.apps.StocksConfig',
     'fijourney.apps.FijourneyConfig',
-    'crispy_forms'
+    'crispy_forms',
+    'analytics.apps.ChartsConfig',
+    'rest_framework',
+    'tools.apps.ToolsConfig'
 ]
 
 MIDDLEWARE = [
@@ -150,6 +153,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static') #Comment out in local
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

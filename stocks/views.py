@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import BSEStocks, NSEStocks
 from sentiment.googlesentiment import Analysis
 from sentiment.sentimeter import TwitterSentiment
+from .models import BSEStocks
 
 
 def stocks_home(request):
@@ -15,7 +16,8 @@ def stocks_home(request):
 
 
 def stock_detail(request):
-    quote = request.POST['quote']
+    if request.method == "POST":
+        quote = request.POST['quote']
     term = quote
     keyword = quote
     analysis = Analysis(term)
@@ -44,6 +46,3 @@ def stock_detail(request):
         'keyword': keyword,
     }
     return render(request, 'stocks/stock_detail.html', context)
-
-
-

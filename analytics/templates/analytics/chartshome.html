@@ -1,0 +1,237 @@
+{% extends "dashboard/base.html" %}
+
+{% block content %}
+<script>
+
+{% block jquery %}
+var endpoint = 'api/chart/data/'
+var defaultData = []
+var defaultLabels = []
+
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+        defaultLabels = data.defaultLabels
+        defaultData = data.defaultData
+        sectors = data.sectors
+        sectorsData = data.sectorsData
+        holdings = data.holdings
+        holdingsPercent = data.holdingsPercent
+        setChart()
+
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
+})
+
+function setChart(){
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var ctx2 = document.getElementById('myChart2').getContext('2d');
+        var ctx3 = document.getElementById('myChart3').getContext('2d');
+
+        var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: sectors,
+            datasets: [{
+                label: 'Sectorial Distribution',
+                data: sectorsData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+        });
+
+        var myChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: holdings,
+            datasets: [{
+                label: 'Top 5 Holdings',
+                data: holdingsPercent,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+        });
+
+        var myChart3 = new Chart(ctx3, {
+        type: 'line',
+        data: {
+            labels: defaultLabels,
+            datasets: [{
+                label: 'Portfolio Return',
+                data: defaultData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+        });
+}
+
+{% endblock %}
+</script>
+
+<div class="main-content-inner">
+    <div class="row">
+
+        <div class="col-12 mt-5">
+            <div class="card">
+                <div class="card-body">
+
+                    <h2>Portfolio Analytics</h2>
+                    <p>Here is a quick snapshot of your portfolio [Click here to add your latest purchases to the list]</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Financial profile -->
+<div class="main-content-inner">
+    <div class="row">
+
+        <!-- First chart starts here -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                   <h4 class="card-title">Your Financial Profile:</h4>
+                    <ul>
+                        <li><p>Age: 35 Years</p></li>
+                        <li><p>Your Risk Profile: Medium</p></li>
+                        <li><p>Expected Age of Retirement: 60 Years</p></li>
+                    </ul>
+                    <br><br>
+                    <h4 class="card-title">Your Wealth Status:</h4>
+                    <ul>
+                        <li><p>Your portfolio risk matches your risk profile</p></li>
+                        <li><p>Your total investment value: Rs 25 Lakhs</p></li>
+                        <li><p>Current Value of your investments: Rs 31 Lakhs</p></li>
+                        <li><p>Your Unrealized profit: Rs 6 Lakhs</p></li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <!-- First chart ends here -->
+
+        <!-- Second chart starts here -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                         <canvas id="myChart3"></canvas>
+                    <br><p align="center">Last 3 months:  0.7% | Last 6 months:  15.9% | Last 1 year:  12.2%</p>
+                </div>
+            </div>
+        </div>
+        <!-- Second chart ends here -->
+    </div>
+</div>
+
+
+<div class="main-content-inner">
+    <div class="row">
+
+        <!-- First chart starts here -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                       <canvas id="myChart"></canvas>
+
+                </div>
+            </div>
+        </div>
+        <!-- First chart ends here -->
+
+        <!-- Second chart starts here -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                         <canvas id="myChart2"></canvas>
+
+                </div>
+            </div>
+        </div>
+        <!-- Second chart ends here -->
+    </div>
+</div>
+
+</div>
+
+{% endblock content %}
