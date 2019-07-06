@@ -1,14 +1,16 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import AceInvestor, RakeshJhunjhnwalaPortfolio, DollyKhanna, AkashBhanshali, AnilKumarGoel, AshishKacholia, MohnishPabrai, NemishShah, VijayKedia
+from .models import AceInvestor, BulkDeals, RakeshJhunjhnwalaPortfolio, DollyKhanna, AkashBhanshali, AnilKumarGoel, AshishKacholia, MohnishPabrai, NemishShah, VijayKedia
 
 
 @login_required
 def home(request):
     context = {
         'aceinvestors': AceInvestor.objects.all(),
+        'bulkdeals': BulkDeals.objects.order_by("-id")[:20],
         'title': 'Ace Investor'
     }
+
     return render(request, 'aceinvestors/aceinvestors.html', context)
 
 

@@ -8,15 +8,16 @@
     <div class="sales-report-area mt-5 mb-5">
             <div class="row">
 
-                {% for aceinvestor in aceinvestors  %}
-                <div class="col-md-6">
+
+                <div class="col-md-8">
+                    {% for aceinvestor in aceinvestors  %}
                     <div class="card">
                             <div class="card-body">
                                 <div class="media mb-6">
                                     <img class="img-fluid mr-4" src="{% static "" %}/aceinvestors/{{ aceinvestor.image_name }}" alt="image" height="80" width="80">
                                     <div class="media-body">
                                         <div class="s-report-title d-flex justify-content-between">
-                                            <h4>{{ aceinvestor.investor_name }}</h4>
+                                            <h2 class="card-title">{{ aceinvestor.investor_name }}</h2>
                                             <strong>({{ aceinvestor.stock_no }} Stock)</strong>
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
@@ -27,8 +28,24 @@
                                 </div>
                             </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">Latest Deals:</h2>
+                            <ul>
+                                {% for deals in bulkdeals  %}
+                                <li>>>> [{{ deals.deal_date }}] {{ deals.client_name }} [{{ deals.deal_type }}] {{ deals.quantity }} Quantity of {{ deals.company_symbol }} in Bulk deal</li><br>
+                                {% endfor %}
+                            </ul>
+
+                            <p><a href="https://www.bseindia.com/markets/equity/EQReports/bulk_deals.aspx" target="_blank">(Check recent Block/Bulk deals here)</a></p>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
     </div>
