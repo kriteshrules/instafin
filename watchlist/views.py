@@ -4,10 +4,7 @@ from django.views.generic import ListView, DeleteView
 from .models import WatchList
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.http import HttpResponse
-import json
-from stocks.models import BSEStocks
-from django.db.models import Q
+from stocks.stockquote import getQuotes
 
 
 class StockListView(ListView):
@@ -18,15 +15,40 @@ class StockListView(ListView):
     def get(self, request):
         form = WatchlistForm()
         current_user = request.user
+
+        # symbol = []
+        # target_price = []
+        # comment = []
+        #
+        # watchlist = current_user.watchlist_set.all()
+        # for i in watchlist:
+        #     sym = i.stock_name
+        #     symbol.append(sym)
+        #     target = i.target_price
+        #     target_price.append(target)
+        #     com = i.comment
+        #     comment.append(com)
+
+        symbol = current_user.watchlist_set.values_list('stock_name', flat=True)
+        target_price = current_user.watchlist_set.values_list('target_price', flat=True)
+        comment = current_user.watchlist_set.values_list('comment', flat=True)
+        pk = current_user.watchlist_set.values_list('pk', flat=True)
+
+        q = getQuotes(symbol)
+        q.run()
+
+        mylist = zip(symbol, q.stocknamelist, q.closepricelist, target_price, q.yearhighlist, q.yearlowlist, comment, pk)
+
         context = {
             'form': form,
             'title': 'Watchlist',
-            'watchlist': current_user.watchlist_set.all(),
+            'mylist': mylist,
         }
         return render(request, self.template_name, context)
 
     def post(self, request):
         form = WatchlistForm(request.POST)
+        current_user = request.user
 
         if form.is_valid():
             post = form.save(commit=False)
@@ -38,13 +60,23 @@ class StockListView(ListView):
             form = WatchlistForm()
             messages.success(request, f'The stock has been added to your watchlist!')
 
+        symbol = current_user.watchlist_set.values_list('stock_name', flat=True)
+        target_price = current_user.watchlist_set.values_list('target_price', flat=True)
+        comment = current_user.watchlist_set.values_list('comment', flat=True)
+        pk = current_user.watchlist_set.values_list('pk', flat=True)
+
+        q = getQuotes(symbol)
+        q.run()
+
+        mylist = zip(symbol, q.stocknamelist, q.closepricelist, target_price, q.yearhighlist, q.yearlowlist, comment, pk)
+
         args = {
             'form': form,
             'title': 'Watchlist',
             'stock_name': stock_name,
             'target_price': target_price,
             'comment': comment,
-            'watchlist': request.user.watchlist_set.all()
+            'mylist': mylist
         }
         return render(request, self.template_name, args)
 
@@ -57,31 +89,10 @@ class DeleteView(SuccessMessageMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         stock_name = self.object.stock_name
-        request.session['stock_name'] = stock_name  # name will be change according to your need
+        request.session['stock_name'] = stock_name
         message = request.session['stock_name'] + ' deleted successfully'
         messages.success(self.request, message)
         return super(DeleteView, self).delete(request, *args, **kwargs)
-
-
-def search(request, s):
-    res = []
-    print("in search", s)
-    try:
-        q = BSEStocks.objects.filter(Q(Symbol__istartswith=s) | Q(CompanyName__istartswith=s))
-        for i in q:
-            s = s.upper()
-            CompanyName = i.CompanyName.capitalize()
-            Symbol = i.Symbol.capitalize()
-            if (CompanyName.startswith(s)):
-                res.append(CompanyName)
-            if (Symbol.startswith(s)):
-                res.append(Symbol)
-        print(res)
-
-    except Exception as e:
-        print("Error", e)
-
-    return HttpResponse(json.dumps({"res": res}), content_type="application/json")
 
 
 
