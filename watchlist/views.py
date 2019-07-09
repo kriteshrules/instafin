@@ -4,13 +4,16 @@ from django.views.generic import ListView, DeleteView
 from .models import WatchList
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponse
+import json
+from stocks.models import BSEStocks
+from django.db.models import Q
 
 
 class StockListView(ListView):
     template_name = 'watchlist/watchlist.html'
     model = WatchList
     context_object_name = 'watchlist'
-
 
     def get(self, request):
         form = WatchlistForm()
@@ -58,6 +61,28 @@ class DeleteView(SuccessMessageMixin, DeleteView):
         message = request.session['stock_name'] + ' deleted successfully'
         messages.success(self.request, message)
         return super(DeleteView, self).delete(request, *args, **kwargs)
+
+
+def search(request, s):
+    res = []
+    print("in search", s)
+    try:
+        q = BSEStocks.objects.filter(Q(Symbol__istartswith=s) | Q(CompanyName__istartswith=s))
+        for i in q:
+            s = s.upper()
+            CompanyName = i.CompanyName.capitalize()
+            Symbol = i.Symbol.capitalize()
+            if (CompanyName.startswith(s)):
+                res.append(CompanyName)
+            if (Symbol.startswith(s)):
+                res.append(Symbol)
+        print(res)
+
+    except Exception as e:
+        print("Error", e)
+
+    return HttpResponse(json.dumps({"res": res}), content_type="application/json")
+
 
 
 

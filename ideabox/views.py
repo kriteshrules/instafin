@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Ideabox, DividendChampions, HighRiskReward, StockMonth, TopLargecaps, UndervaluedStocks, ZeroDebt
+from nsetools import Nse
+from django.db.models import Q
 
 
+nse = Nse()
 @login_required
 def home(request):
     context = {
@@ -10,6 +13,40 @@ def home(request):
         'title': 'Ideabox'
     }
     return render(request, 'ideabox/ideabox.html', context)
+
+
+def zerodebt(request):
+    import requests
+    requests.packages.urllib3.disable_warnings()
+    import ssl
+
+    try:
+        _create_unverified_https_context = ssl._create_unverified_context
+    except AttributeError:
+        pass
+    else:
+        ssl._create_default_https_context = _create_unverified_https_context
+
+    stocknamelist = []
+    closepricelist = []
+    symbol = ZeroDebt.objects.values_list('stock_name', flat=True)
+    comment = ZeroDebt.objects.values_list('comment', flat=True)
+
+    for i in symbol:
+        q = nse.get_quote(i)
+        closedprice = q.get("averagePrice")
+        closepricelist.append(closedprice)
+        companyName = q.get("companyName")
+        stocknamelist.append(companyName)
+
+    mylist = zip(symbol, stocknamelist, closepricelist, comment)
+
+    context = {
+        'zerodebt': ZeroDebt.objects.all(),
+        'title': 'Zero debt stocks',
+        'mylist': mylist,
+    }
+    return render(request, 'ideabox/zero_debt.html', context)
 
 
 def dividendchampions(request):
@@ -50,11 +87,3 @@ def undervaluedstocks(request):
         'title': 'Undervalued stocks'
     }
     return render(request, 'ideabox/undervalued_stocks.html', context)
-
-
-def zerodebt(request):
-    context = {
-        'zerodebt': ZeroDebt.objects.all(),
-        'title': 'Zero debt stocks'
-    }
-    return render(request, 'ideabox/zero_debt.html', context)

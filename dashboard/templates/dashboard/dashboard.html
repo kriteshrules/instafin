@@ -93,13 +93,13 @@
             <div class="card">
                  <div class="card-body">
 
-                 <H1>Latest Financial News</H1><br><br>
+                 <H2 class="card-title">Latest Financial News</H2><br><br>
 
                      {% for articles in api.articles %}
                      <div class="media mb-5">
                                 <img class="img-fluid mr-4" src="{{ articles.urlToImage }}" alt="{{ articles.source.name }}" width="100">
                             <div class="media-body">
-                                <h4 class="mb-3">{{ articles.title }}</h4>
+                                <h4 class="card-title">{{ articles.title }}</h4>
                                 [Published at: {{ articles.publishedAt}}]
                                 {{ articles.description }}<br>
                                 <a href="{{ articles.url }}" class="btn btn-light" target="_blank">Read more</a>
