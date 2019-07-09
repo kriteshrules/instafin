@@ -2,33 +2,57 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
+<style>
+* {
+  stock_name-sizing: border-stock_name;
+}
+
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  top: 30%;
+  left: 3%;
+  right: 3%;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete-items div:hover {
+  background-color: #e9e9e9;
+}
+
+.autocomplete-active {
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+div#id_stock_nameautocomplete-list {
+    color: black;
+}
+</style>
+
+
 <div class="main-content-inner" xmlns="http://www.w3.org/1999/html">
                 <div class="row">
-
-                    <!-- Start of watchlist form-->
-                <div class="col-12 mt-5">
-                    <div class="card">
-                        <div class="card-body">
-                            <h1>Add stock to watchlist</h1>
-                            <form method="POST">
-                                {% csrf_token %}
-                                {{ form|crispy }}
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-
-                    <!-- End of watchlist form-->
-
 
                     <!-- Start of watchlist table-->
 
                 <div class="col-12 mt-5">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">Your Stock Watchlist</h4>
+                            <h4 class="header-title">Your Stock Watchlist <button type="button" class="btn btn-primary btn-flat btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg">Add new stock</button></h4>
                             <div class="data-tables">
                                 <table id="dataTable" class="text-center">
                                     <thead class="bg-light text-capitalize">
@@ -68,6 +92,32 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            <!-- Modal starts here-->
+                            <div class="modal fade bd-example-modal-lg">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Add stock to watchlist</h5>
+                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST">
+                                                    {% csrf_token %}
+                                                    {{ form.stock_name }}<br>
+                                                    {{ form.target_price }}<br>
+                                                    {{ form.comment }}<br>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <!-- Modal ends here-->
+
                         </div>
                     </div>
                 </div>
@@ -75,6 +125,115 @@
 
             </div>
         </div>
+
+<script>
+  var stock_name=$("#id_stock_name");
+    stock_name[0].className="form-control form-control-lg myInput";
+    stock_name[0].placeholder="Enter the name/symbol query...";
+    stock_name.keypress(function(event){ q = stock_name[0].value + event.key;
+        if (q.length == 1){
+            req(q);
+    }
+   });
+   var target_price=$("#id_target_price");
+    target_price[0].className="form-control form-control-lg myInput";
+    target_price[0].placeholder="Enter your desired target price...";
+
+    var comment=$("#id_comment");
+    comment[0].className="form-control form-control-lg myInput";
+    comment[0].placeholder="Enter a comment";
+  </script>
+
+
+    <script>
+        var req=function(q){
+        realurl="search/"+q+"/";
+        jQuery.ajax({
+        type: "GET",
+        url: realurl,
+        success: function(data) {
+             alpha=data["res"];
+              },
+            async: false ,
+        });
+
+var unique = alpha.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
+
+
+autocomplete(document.getElementsByClassName("myInput")[0], unique);
+};
+
+function autocomplete(inp, arr) {
+  var currentFocus;
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      this.parentNode.appendChild(a);
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          b = document.createElement("DIV");
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          b.addEventListener("click", function(e) {
+              inp.value = this.getElementsByTagName("input")[0].value;
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        currentFocus++;
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        currentFocus--;
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        e.preventDefault();
+        if (currentFocus > -1) {
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+
+  function addActive(x) {
+    if (!x) return false;
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+  });
+}
+
+</script>
+
+
 
 </div>
 

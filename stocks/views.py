@@ -3,7 +3,10 @@ from django.contrib.auth.decorators import login_required
 from .models import BSEStocks, NSEStocks
 from sentiment.googlesentiment import Analysis
 from sentiment.sentimeter import TwitterSentiment
-from .models import BSEStocks
+from django.db.models import Q
+from . import forms
+import json
+from django.http import HttpResponse
 
 
 def stocks_home(request):
@@ -46,3 +49,34 @@ def stock_detail(request):
         'keyword': keyword,
     }
     return render(request, 'stocks/stock_detail.html', context)
+
+
+def stocks_search(request):
+    form = forms.Search()
+    context = {
+        'NSEStocks': NSEStocks.objects.all(),
+        'title': 'Stocks Search',
+        'form': form
+    }
+    return render(request, 'stocks/stock_search.html', context)
+
+
+def search(request,s):
+    res = []
+    print("in search",s)
+    try:
+        q=NSEStocks.objects.filter( Q(CompanyName__istartswith=s) | Q(Symbol__istartswith=s ) )
+        for i in q:
+            s=s.upper()
+            CompanyName=i.CompanyName.capitalize()
+            Symbol=i.Symbol.capitalize()
+            if( CompanyName.startswith(s) ):
+                res.append(CompanyName)
+            if( Symbol.startswith(s) ):
+                res.append(Symbol)
+        print(res)
+
+    except Exception as e:
+        print("Error",e)
+
+    return HttpResponse(json.dumps({"res":res}),content_type="application/json")
