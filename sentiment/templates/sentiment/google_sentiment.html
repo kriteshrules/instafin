@@ -43,38 +43,12 @@
         <div class="col-lg-6 mt-5">
             <div class="card">
                 <div class="card-body">
-                        <h4 class="header-title">Google News: {{ Term }}</h4>
-
-                        <div class="data-tables">
-                            <table id="dataTable" class="text-left">
-                                <thead class="bg-light text-capitalize">
-                                    <tr>
-                                        <th>Top Google News</th>
-                                        <th>Comment</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% for y in gheadline_pos %}
-                                <tr>
-                                    <td>{{ y }}</td>
-                                    <td>Positive</td>
-                                </tr>
-                                {% endfor %}
-                                {% for z in gheadline_neg %}
-                                <tr>
-                                    <td>{{ z }}</td>
-                                    <td>Negative</td>
-                                </tr>
-                                {% endfor %}
-                                {% for x in gheadline_neu %}
-                                <tr>
-                                    <td>{{ x }}</td>
-                                    <td>Neutral</td>
-                                </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
+                        <h2>Top Google News: {{ Term }}</h2>
+                        {% for head, des, url, sent in mylist %}
+                        <h4 class="card-title">{{ head }}</h4>
+                        <p>{{ des }}<a href="{{ url }}" target="_blank">[Read more]</a></p>
+                        <p><b>Sentiment: {{ sent }}</b></p><br><br>
+                        {% endfor %}
                 </div>
             </div>
         </div>
