@@ -363,7 +363,6 @@ div#id_stock_nameautocomplete-list {
     <script>
         var req=function(q){
         realurl="search/"+q+"/";
-            console.log(q,realurl,"url");
         jQuery.ajax({
         type: "GET",
         url: realurl,
@@ -374,7 +373,6 @@ div#id_stock_nameautocomplete-list {
         });
 
 var unique = alpha.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
-    console.log(alpha);
 
 
 autocomplete(document.getElementsByClassName("myInput")[0], unique);

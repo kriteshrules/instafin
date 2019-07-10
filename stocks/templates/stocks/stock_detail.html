@@ -155,26 +155,14 @@
                                             <thead class="bg-light text-capitalize">
                                                 <tr>
                                                     <th>Top Google News</th>
-                                                    <th>Link</th>
+                                                    <th>Sentiment</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            {% for z in gheadline_pos %}
+                                            {% for head, des, url, sent in mylist %}
                                             <tr>
-                                                <td>{{ z }}</td>
-                                                <td>Positive</td>
-                                            </tr>
-                                            {% endfor %}
-                                            {% for z in gheadline_neg %}
-                                            <tr>
-                                                <td>{{ z }}</td>
-                                                <td>Negative</td>
-                                            </tr>
-                                            {% endfor %}
-                                            {% for x in gheadline_neu %}
-                                            <tr>
-                                                <td>{{ x }}</td>
-                                                <td>Neutral</td>
+                                                <td>{{ head }} <br> {{ des }} <br> {{ url }}</td>
+                                                <td>{{ sent }}</td>
                                             </tr>
                                             {% endfor %}
                                             </tbody>

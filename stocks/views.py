@@ -41,6 +41,7 @@ def stock_detail(request):
         "neu_count": analysis.neu_count,
         "headings": analysis.headings,
         "urls": analysis.urls,
+        "mylist": analysis.mylist,              #list of news
         "newtweetn": twittersentiment.newtweetn,
         "newtweetp": twittersentiment.newtweetp,
         'pos_countt': twittersentiment.pos_count,
