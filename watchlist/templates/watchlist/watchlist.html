@@ -7,12 +7,12 @@
   stock_name-sizing: border-stock_name;
 }
 
-.autocomplete {
+.autocomplete2 {
   position: relative;
   display: inline-block;
 }
 
-.autocomplete-items {
+.autocomplete2-items {
   position: absolute;
   border: 1px solid #d4d4d4;
   border-bottom: none;
@@ -23,26 +23,25 @@
   right: 3%;
 }
 
-.autocomplete-items div {
+.autocomplete2-items div {
   padding: 10px;
   cursor: pointer;
   background-color: #fff;
   border-bottom: 1px solid #d4d4d4;
 }
 
-.autocomplete-items div:hover {
+.autocomplete2-items div:hover {
   background-color: #e9e9e9;
 }
 
-.autocomplete-active {
+.autocomplete2-active {
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
-div#id_stock_nameautocomplete-list {
+div#id_stock_nameautocomplete2-list {
     color: black;
 }
 </style>
-
 
 <div class="main-content-inner" xmlns="http://www.w3.org/1999/html">
                 <div class="row">
@@ -102,7 +101,7 @@ div#id_stock_nameautocomplete-list {
                                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="POST">
+                                                <form method="POST" autocomplete="off">
                                                     {% csrf_token %}
                                                     {{ form.stock_name }}<br>
                                                     {{ form.target_price }}<br>
@@ -128,26 +127,26 @@ div#id_stock_nameautocomplete-list {
 
 <script>
   var stock_name=$("#id_stock_name");
-    stock_name[0].className="form-control form-control-lg myInput";
+    stock_name[0].className="form-control form-control-lg myInput2";
     stock_name[0].placeholder="Enter the name/symbol query...";
     stock_name.keypress(function(event){ q = stock_name[0].value + event.key;
         if (q.length == 1){
-            req(q);
+            rem(q);
     }
    });
    var target_price=$("#id_target_price");
-    target_price[0].className="form-control form-control-lg myInput";
+    target_price[0].className="form-control form-control-lg myTarget";
     target_price[0].placeholder="Enter your desired target price...";
 
     var comment=$("#id_comment");
-    comment[0].className="form-control form-control-lg myInput";
+    comment[0].className="form-control form-control-lg myComment";
     comment[0].placeholder="Enter a comment";
   </script>
 
 
     <script>
-        var req=function(q){
-        realurl="search/"+q+"/";
+        var rem=function(q){
+        realurl="find/"+q+"/";
         jQuery.ajax({
         type: "GET",
         url: realurl,
@@ -160,10 +159,10 @@ div#id_stock_nameautocomplete-list {
 var unique = alpha.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
 
 
-autocomplete(document.getElementsByClassName("myInput")[0], unique);
+autocomplete2(document.getElementsByClassName("myInput2")[0], unique);
 };
 
-function autocomplete(inp, arr) {
+function autocomplete2(inp, arr) {
   var currentFocus;
   inp.addEventListener("input", function(e) {
       var a, b, i, val = this.value;
@@ -171,8 +170,8 @@ function autocomplete(inp, arr) {
       if (!val) { return false;}
       currentFocus = -1;
       a = document.createElement("DIV");
-      a.setAttribute("id", this.id + "autocomplete-list");
-      a.setAttribute("class", "autocomplete-items");
+      a.setAttribute("id", this.id + "autocomplete2-list");
+      a.setAttribute("class", "autocomplete2-items");
       this.parentNode.appendChild(a);
       for (i = 0; i < arr.length; i++) {
         if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
@@ -190,7 +189,7 @@ function autocomplete(inp, arr) {
   });
 
   inp.addEventListener("keydown", function(e) {
-      var x = document.getElementById(this.id + "autocomplete-list");
+      var x = document.getElementById(this.id + "autocomplete2-list");
       if (x) x = x.getElementsByTagName("div");
       if (e.keyCode == 40) {
         currentFocus++;
@@ -211,15 +210,15 @@ function autocomplete(inp, arr) {
     removeActive(x);
     if (currentFocus >= x.length) currentFocus = 0;
     if (currentFocus < 0) currentFocus = (x.length - 1);
-    x[currentFocus].classList.add("autocomplete-active");
+    x[currentFocus].classList.add("autocomplete2-active");
   }
   function removeActive(x) {
     for (var i = 0; i < x.length; i++) {
-      x[i].classList.remove("autocomplete-active");
+      x[i].classList.remove("autocomplete2-active");
     }
   }
   function closeAllLists(elmnt) {
-    var x = document.getElementsByClassName("autocomplete-items");
+    var x = document.getElementsByClassName("autocomplete2-items");
     for (var i = 0; i < x.length; i++) {
       if (elmnt != x[i] && elmnt != inp) {
         x[i].parentNode.removeChild(x[i]);

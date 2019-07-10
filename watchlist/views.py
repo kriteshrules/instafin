@@ -86,11 +86,10 @@ class DeleteView(SuccessMessageMixin, DeleteView):
         return super(DeleteView, self).delete(request, *args, **kwargs)
 
 
-def search(request,s):
+def find(request,s):
     res = []
-    print("in search",s)
     try:
-        q=NSEStocks.objects.filter( Q(Symbol__istartswith=s ) )
+        q= NSEStocks.objects.filter( Q(Symbol__istartswith=s ) )
         for i in q:
             s=s.upper()
             Symbol=i.Symbol.capitalize()

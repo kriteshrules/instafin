@@ -63,15 +63,11 @@ def stocks_search(request):
 
 def search(request,s):
     res = []
-    print("in search",s)
     try:
-        q=NSEStocks.objects.filter( Q(CompanyName__istartswith=s) | Q(Symbol__istartswith=s ) )
+        q= NSEStocks.objects.filter( Q(Symbol__istartswith=s ) )
         for i in q:
             s=s.upper()
-            CompanyName=i.CompanyName.capitalize()
             Symbol=i.Symbol.capitalize()
-            if( CompanyName.startswith(s) ):
-                res.append(CompanyName)
             if( Symbol.startswith(s) ):
                 res.append(Symbol)
         print(res)

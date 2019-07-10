@@ -8,6 +8,7 @@ from django.conf.urls.static import static
 from ideabox import views as ideabox_views
 from thematic import views as thematic_views
 from aceinvestors import views as aceinvestors_views
+from stocks import views as stock_views
 
 
 urlpatterns = [
@@ -51,6 +52,7 @@ urlpatterns = [
     path('fire/', include('fijourney.urls')),
     path('analytics/', include('analytics.urls')),
     path('tools/', include('tools.urls')),
+    path('search/<str:s>/', stock_views.search, name="find")
 ]
 
 #path('ideabox/', include('ideabox.urls')),
