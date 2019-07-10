@@ -131,43 +131,18 @@
                     </div>
 
                     <!-- Google News Sentiment analysis modal start -->
-                    <div class="col-lg-6 mt-5">
+                    <div class="col-lg-12  mt-5">
                         <div class="card">
                             <div class="card-body">
-                                    <h4 class="header-title">Result (keyword: {{ Term }})</h4>
-                                    <div id="piechart_google" style="width: 480px; height: 480px;"></div>
-
-                                    <p>
-                                        The overall sentiment is {{ Sentiment }} and subjectivity is {{ Subjectivity }}. <br> <br> {The sentiment is a floating number within the range [-1.0, 1.0] where -1 is extreme negative and +1 is extreme positive. And, the subjectivity is a floating number within the range [0.0, 1.0] where 0.0 is very objective and 1.0 is very subjective.}
-                                        <br><br>*Note that the analysis is based only in english language news.
-                                    </p><br><br>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 mt-5">
-                        <div class="card">
-                            <div class="card-body">
-                                    <h4 class="header-title">Google News: {{ Term }}</h4>
-
-                                    <div class="data-tables">
-                                        <table id="dataTable2" class="text-left">
-                                            <thead class="bg-light text-capitalize">
-                                                <tr>
-                                                    <th>Top Google News</th>
-                                                    <th>Sentiment</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% for head, des, url, sent in mylist %}
-                                            <tr>
-                                                <td>{{ head }} <br> {{ des }} <br> {{ url }}</td>
-                                                <td>{{ sent }}</td>
-                                            </tr>
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                <div class="d-sm-flex justify-content-between align-items-center">
+                                    <h2 class="card-title">Goolge News Sentiment</h2>
+                                    {% for head, des, url, sent in mylist %}
+                                    <h4 class="card-title">{{ head }}</h4>
+                                    <p>{{ des }}</p>
+                                    <a href="{{ url }}" target="_blank">[Read more]</a>
+                                    <p><b>Sentiment: {{ sent }}</b></p><br><br>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </div>
