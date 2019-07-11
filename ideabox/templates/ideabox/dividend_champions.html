@@ -39,17 +39,19 @@
                                     <table id="dataTable2" class="text-center">
                                         <thead class="text-capitalize">
                                             <tr>
+                                                <th>Symbol</th>
                                                 <th>Company Name</th>
-                                                <th>Market Cap</th>
+                                                <th>Last price (Rs)</th>
                                                 <th>Description</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {% for x in dividendchampions  %}
+                                            {% for symbol, name, price, comment in mylist  %}
                                             <tr>
-                                                <td>{{ x.stock_name }}</td>
-                                                <td>72,000</td>
-                                                <td>{{ x.comment }}</td>
+                                                <td>{{ symbol }}</td>
+                                                <td>{{ name }}</td>
+                                                <td>{{ price }}</td>
+                                                <td>{{ comment }}</td>
                                             </tr>
                                             {% endfor %}
 
