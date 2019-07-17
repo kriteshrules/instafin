@@ -1,6 +1,48 @@
 {% extends "dashboard/base.html" %}
 
 {% block content %}
+
+<style>
+* {
+  stock_name-sizing: border-stock_name;
+}
+
+.autocomplete2 {
+  position: relative;
+  display: inline-block;
+}
+
+.autocomplete2-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  top: 30%;
+  left: 3%;
+  right: 3%;
+}
+
+.autocomplete2-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete2-items div:hover {
+  background-color: #e9e9e9;
+}
+
+.autocomplete2-active {
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+div#id_stock_nameautocomplete2-list {
+    color: black;
+}
+</style>
+
 <script>
 
 {% block jquery %}
@@ -219,36 +261,45 @@ function setChart(){
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="header-title">Your Stock Portfolio</h4>
+                    <h4 class="header-title">Your Stock Portfolio<button type="button" class="btn btn-primary btn-flat btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg">Add new stock</button></h4>
                             <div class="data-tables">
                                 <table id="dataTable" class="text-center">
                                     <thead class="bg-light text-capitalize">
                                         <tr>
-                                            <th>Name</th>
+                                            <th>Symbol</th>
+                                            <th>Company Name</th>
                                             <th>Current Price (Rs)</th>
-                                            <th>Purchase Price</th>
-                                            <th>Quantity</th>
-                                            <th>Profit/Loss</th>
-                                            <th>Industry/Sector</th>
+                                            <th>Purchase Price (Rs)</th>
+                                            <th>Quantity (Rs)</th>
+                                            <th>52-Week High (Rs)</th>
+                                            <th>52-Week low(Rs)</th>
+                                            <th>Comment</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for symbol, name, cprice, pprice, qty, high, low, comment, pk in mylist  %}
                                         <tr>
-                                            <td>HUL</td>
-                                            <td>1434</td>
-                                            <td>1234</td>
-                                            <td>100</td>
-                                            <td>20000</td>
-                                            <td>Consumer Good</td>
+                                            <td>{{ symbol }}</td>
+                                            <td>{{ name }}</td>
+                                            <td>{{ cprice }}</td>
+                                            <td>{{ pprice }}</td>
+                                            <td>{{ qty }}</td>
+                                            <td>{{ high }}</td>
+                                            <td>{{ low }}</td>
+                                            <td>{{ comment }}</td>
+                                            <td>
+                                                <ul class="d-flex justify-content-center">
+                                                    <li>
+                                                        <form action="{% url 'delete_view' pk=pk %}" method="POST">
+                                                          {% csrf_token %}
+                                                            <button class="btn fa fa-trash" type="submit" value="Delete"/></button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td>Infosys</td>
-                                            <td>656</td>
-                                            <td>718</td>
-                                            <td>80</td>
-                                            <td>4800</td>
-                                            <td>IT/Technology</td>
-                                        </tr>
+                                        {% endfor %}
                                     </tbody>
                             </table>
 
@@ -258,11 +309,150 @@ function setChart(){
             </div>
         </div>
         <!-- Second chart ends here -->
+
+        <!-- Modal starts here-->
+        <div class="modal fade bd-example-modal-lg">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add stock to Portfolio</h5>
+                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" autocomplete="off">
+                                {% csrf_token %}
+                                {{ form.stock_name }}<br>
+                                {{ form.purchase_price }}<br>
+                                {{ form.purchase_quantity }}<br>
+                                {{ form.comment }}<br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <!-- Modal ends here-->
+
+
     </div>
 </div>
 
-</div>
+<script>
+  var stock_name=$("#id_stock_name");
+    stock_name[0].className="form-control form-control-lg myInput2";
+    stock_name[0].placeholder="Enter the name/symbol query...";
+    stock_name.keypress(function(event){ q = stock_name[0].value + event.key;
+        if (q.length == 1){
+            rem(q);
+    }
+   });
+   var purchase_price=$("#id_purchase_price");
+    purchase_price[0].className="form-control form-control-lg myPrice";
+    purchase_price[0].placeholder="Enter your purchase price...";
+
+    var purchase_quantity=$("#id_purchase_quantity");
+    purchase_quantity[0].className="form-control form-control-lg myQty";
+    purchase_quantity[0].placeholder="Enter the number of stocks bought...";
+
+    var comment=$("#id_comment");
+    comment[0].className="form-control form-control-lg myComment";
+    comment[0].placeholder="Enter a comment";
+  </script>
+
+
+    <script>
+        var rem=function(q){
+        realurl="search/"+q+"/";
+        jQuery.ajax({
+        type: "GET",
+        url: realurl,
+        success: function(data) {
+             alpha=data["res"];
+              },
+            async: false ,
+        });
+
+var unique = alpha.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
+
+
+autocomplete2(document.getElementsByClassName("myInput2")[0], unique);
+};
+
+function autocomplete2(inp, arr) {
+  var currentFocus;
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete2-list");
+      a.setAttribute("class", "autocomplete2-items");
+      this.parentNode.appendChild(a);
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          b = document.createElement("DIV");
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          b.addEventListener("click", function(e) {
+              inp.value = this.getElementsByTagName("input")[0].value;
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete2-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        currentFocus++;
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        currentFocus--;
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        e.preventDefault();
+        if (currentFocus > -1) {
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+
+  function addActive(x) {
+    if (!x) return false;
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    x[currentFocus].classList.add("autocomplete2-active");
+  }
+  function removeActive(x) {
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete2-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    var x = document.getElementsByClassName("autocomplete2-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+  });
+}
+
+</script>
 
 <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+
+</div>
 
 {% endblock content %}

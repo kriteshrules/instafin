@@ -1,19 +1,84 @@
-from django.http import JsonResponse
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from django.views.generic import View
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
+from .forms import PortfolioForm
+from django.views.generic import ListView, DeleteView
+from .models import Portfolio
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+from stocks.stockquote import getQuotes
+from django.db.models import Q
+import json
+from django.http import HttpResponse
+from stocks.models import BSEStocks, NSEStocks
 
 User = get_user_model()
 
-class ChartsView(View):
-    def get(self, request, *args, **kwargs):
+class ChartsView(ListView):
+    template_name = 'analytics/chartshome.html'
+    model = Portfolio
+    context_object_name = 'portfolio'
+
+    def get(self, request):
+        form = PortfolioForm()
+        current_user = request.user
+
+        symbol = current_user.portfolio_set.values_list('stock_name', flat=True)
+        purchase_price = current_user.portfolio_set.values_list('purchase_price', flat=True)
+        purchase_quantity = current_user.portfolio_set.values_list('purchase_quantity', flat=True)
+        comment = current_user.portfolio_set.values_list('comment', flat=True)
+        pk = current_user.portfolio_set.values_list('pk', flat=True)
+
+        q = getQuotes(symbol)
+        q.run()
+
+        mylist = zip(symbol, q.stocknamelist, q.closepricelist, purchase_price, purchase_quantity, q.yearhighlist, q.yearlowlist, comment, pk)
+
         context = {
-            'title': 'Analytics '
+            'form': form,
+            'title': 'Analytics',
+            'mylist': mylist,
         }
-        return render(request, 'analytics/chartshome.html', context)
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        form = PortfolioForm(request.POST)
+        current_user = request.user
+
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+            stock_name = form.cleaned_data['stock_name']
+            purchase_price = form.cleaned_data['purchase_price']
+            purchase_quantity = form.cleaned_data['purchase_quantity']
+            comment = form.cleaned_data['comment']
+            form = PortfolioForm()
+            messages.success(request, f'The stock has been added to your portfolio!')
+
+        symbol = current_user.portfolio_set.values_list('stock_name', flat=True)
+        purchase_price = current_user.portfolio_set.values_list('purchase_price', flat=True)
+        purchase_quantity = current_user.portfolio_set.values_list('purchase_quantity', flat=True)
+        comment = current_user.portfolio_set.values_list('comment', flat=True)
+        pk = current_user.portfolio_set.values_list('pk', flat=True)
+
+        q = getQuotes(symbol)
+        q.run()
+
+        mylist = zip(symbol, q.stocknamelist, q.closepricelist, purchase_price, purchase_quantity, q.yearhighlist,
+                     q.yearlowlist, comment, pk)
+
+        args = {
+            'form': form,
+            'title': 'Analytics',
+            'mylist': mylist,
+            'stock_name': symbol,
+            'purchase_price': purchase_price,
+            'purchase_quantity': purchase_quantity,
+            'comment': comment,
+        }
+        return render(request, self.template_name, args)
 
 
 class ChartData(APIView):
@@ -44,3 +109,33 @@ class ChartData(APIView):
             "negativesent": negativesent
         }
         return Response(data)
+
+class DeleteView(SuccessMessageMixin, DeleteView):
+    model = Portfolio
+    success_url = '/analytics/'
+    success_message = "deleted..."
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        stock_name = self.object.stock_name
+        request.session['stock_name'] = stock_name
+        message = request.session['stock_name'] + ' deleted successfully'
+        messages.success(self.request, message)
+        return super(DeleteView, self).delete(request, *args, **kwargs)
+
+
+def search(request,s):
+    res = []
+    try:
+        q= NSEStocks.objects.filter( Q(Symbol__istartswith=s ) )
+        for i in q:
+            s=s.upper()
+            Symbol=i.Symbol.capitalize()
+            if( Symbol.startswith(s) ):
+                res.append(Symbol)
+        print(res)
+
+    except Exception as e:
+        print("Error",e)
+
+    return HttpResponse(json.dumps({"res":res}),content_type="application/json")

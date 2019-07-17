@@ -64,7 +64,7 @@ class StockListView(ListView):
         args = {
             'form': form,
             'title': 'Watchlist',
-            'stock_name': stock_name,
+            'stock_name': symbol,
             'target_price': target_price,
             'comment': comment,
             'mylist': mylist
