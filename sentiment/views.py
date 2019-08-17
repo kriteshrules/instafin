@@ -11,11 +11,11 @@ def home(request):
 
 
 def sentiment(request):
-    consumer_key = 'LnNMAVgk4sg8oFuzi0A7OqNmm'
-    consumer_secret = 'eldO1tzF61vN9d5oLjTv2K50cFAUQhN7tShJVpIkeTVVK9fJHI'
+    consumer_key = 'P3gunyBoRZcRl6FxrE9LqURlC'
+    consumer_secret = 'EPYBXJ2YgTzykmE5qdJCLmbicwW3xqquXbxlJDIUmvDuvi5TQ3'
 
-    access_token = '850268858506031104-v3drln7zpYQfgxdP7sGtLA2eYa7v0dX'
-    access_token_secret = 'IDxeSexLZ1Iq7eFh4ywLzee0VAR0wYrBRr7L8i3dL6V2T'
+    access_token = '850268858506031104-6KxzqF7BxK52takTqkcgt1lTiaPVAm2'
+    access_token_secret = 'm6PWJMdP8inGoxxIsKRTNkUEkR3zIXRimUmyoD6rIj91X'
 
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)

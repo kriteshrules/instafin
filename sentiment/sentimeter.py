@@ -5,10 +5,10 @@ from textblob import TextBlob
 class TwitterSentiment:
     def __init__(self, keyword):
         self.keyword = keyword
-        self.consumer_key = 'LnNMAVgk4sg8oFuzi0A7OqNmm'
-        self.consumer_secret = 'eldO1tzF61vN9d5oLjTv2K50cFAUQhN7tShJVpIkeTVVK9fJHI'
-        self.access_token = '850268858506031104-v3drln7zpYQfgxdP7sGtLA2eYa7v0dX'
-        self.access_token_secret = 'IDxeSexLZ1Iq7eFh4ywLzee0VAR0wYrBRr7L8i3dL6V2T'
+        self.consumer_key = 'P3gunyBoRZcRl6FxrE9LqURlC'
+        self.consumer_secret = 'EPYBXJ2YgTzykmE5qdJCLmbicwW3xqquXbxlJDIUmvDuvi5TQ3'
+        self.access_token = '850268858506031104-6KxzqF7BxK52takTqkcgt1lTiaPVAm2'
+        self.access_token_secret = 'm6PWJMdP8inGoxxIsKRTNkUEkR3zIXRimUmyoD6rIj91X'
         self.N = 100  # Number of Tweets
         self.neg = 0.0
         self.pos = 0.0
