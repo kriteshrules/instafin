@@ -37,8 +37,8 @@ urlpatterns = [
              template_name='users/password_reset_complete.html'
          ),
          name='password_reset_complete'),
-    path('home/', include('home.urls')),
-    path('', dash_views.home, name="dashboard-home"),
+    path('', include('home.urls')),
+    path('dashboard/', dash_views.home, name="dashboard-home"),
     path('ideabox/', ideabox_views.home, name="ideabox-home"),
     path('ideabox/', include('ideabox.urls')),
     path('thematic/', thematic_views.home, name="thematic-home"),
